@@ -1,7 +1,6 @@
 import Profile from './components/Profile/Profile.js'
 import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
-import Hero from './components/Home/Hero.js';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function App() {
@@ -9,7 +8,7 @@ function App() {
     <Router>
       <div styles={{ margin: 'auto' }} className="App">
         <Link to='/'>
-          <Hero />
+          <h1>Melodi</h1>
         </Link>
         <Route exact path="/">
           <Link to='/profile'>
