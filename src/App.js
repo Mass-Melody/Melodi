@@ -1,3 +1,6 @@
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import Profile from './components/Profile/Profile.js'
 import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
