@@ -1,11 +1,12 @@
 import Profile from './components/Profile/Profile.js'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Header from './components/Header/header.js';
 
 function App() {
   return (
     <Router>
       <div styles={{ margin: 'auto' }} className="App">
-        <h1>Melodi</h1>
+        <Header />
         <Route exact path="/">
           <Link to='/profile'>
             Profile Page
