@@ -3,14 +3,16 @@ import Modal from './components/CreateAccModal/Modal.js'
 import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Header from './components/Header/header.js';
 
 function App() {
   return (
     <Router>
+
+        
+
       <div styles={{ margin: 'auto', background: '#e0e0e0' }} className="App">
-        <Link to='/'>
-          <h1>Melodi</h1>
-        </Link>
+        <Header />
         <Route exact path="/">
           <Link to='/profile'>
             <p>Profile Page</p>
