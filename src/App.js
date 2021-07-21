@@ -6,6 +6,7 @@ import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Header from './components/Header/header.js';
+import Footer from './components/Footer/footer.js';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/friends">
           <Friends />
         </Route>
+        <Footer />
       </div>
     </Router>
   );
