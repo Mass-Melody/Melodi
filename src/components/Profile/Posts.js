@@ -1,14 +1,17 @@
 import React from 'react'
+import PostModal from './PostModal.js'
 import { Grid, makeStyles, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     border: '2px black solid',
-    width: '364px',
+    width: '100%',
     height: '800px',
     marginBottom: '1rem',
     overflowX: 'auto',
-    padding: '1rem'
+    padding: '1rem',
+    borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
+    boxShadow: '0 1px 2px var(--shadow-2)'
   },
   picture: {
     marginRight: '1.5rem'
@@ -25,7 +28,7 @@ function Aboutme() {
       className={classes.container}
     >
       <h3>Posts</h3>
-
+      <PostModal />
       <Grid
         container
         direction="column"

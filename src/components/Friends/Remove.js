@@ -1,6 +1,6 @@
 import React from 'react'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import {makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   removeButton: {
@@ -16,7 +16,7 @@ function Remove() {
 
   return (
     <div>
-      <RemoveCircleIcon className={classes.removeButton}/>
+      <RemoveCircleIcon className={classes.removeButton} />
     </div>
   )
 }

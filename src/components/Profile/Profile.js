@@ -13,8 +13,15 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   container: {
     border: '2px black solid',
-    width: '800px',
+    width: '940px',
+    margin: 'auto'
   },
+  left: {
+    width: '360px'
+  },
+  right: {
+    width: '500px'
+  }
 }))
 
 function Profile() {
@@ -29,7 +36,9 @@ function Profile() {
     className={classes.container}
     >
       <Hero />
-      <Grid>
+      <Grid item
+        className={classes.left}
+      >
         {/* LEFT */}
         <Picture />
         <Interactions />
@@ -37,7 +46,8 @@ function Profile() {
         <Interests />
         <Details />
       </Grid>
-      <Grid>
+      <Grid item
+        className={classes.right}>
         {/* RIGHT */}
         <Aboutme />
         <Posts />
