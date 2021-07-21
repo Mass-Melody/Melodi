@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Profile from './components/Profile/Profile.js'
+import Modal from './components/CreateAccModal/Modal.js'
 import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -9,7 +10,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 function App() {
   return (
     <Router>
-      <div styles={{ margin: 'auto' }} className="App">
+      <div styles={{ margin: 'auto', background: '#e0e0e0' }} className="App">
         <Link to='/'>
           <h1>Melodi</h1>
         </Link>
@@ -23,6 +24,8 @@ function App() {
           <Link to='/friends'>
             <p>Friends Page</p>
           </Link>
+            <p>Toggle Modal</p>
+            <Modal />
         </Route>
         <Route exact path="/profile">
           <Profile />
