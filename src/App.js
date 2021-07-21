@@ -1,3 +1,6 @@
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import Profile from './components/Profile/Profile.js'
 import Modal from './components/CreateAccModal/Modal.js'
 import Search from './components/Search/Search.js'
