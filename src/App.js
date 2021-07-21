@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
 import Profile from './components/Profile/Profile.js'
+import Hero from './components/Home/Hero.js'
 import Modal from './components/CreateAccModal/Modal.js'
 import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
@@ -11,11 +10,9 @@ import Header from './components/Header/header.js';
 function App() {
   return (
     <Router>
-
-        
-
       <div styles={{ margin: 'auto', background: '#e0e0e0' }} className="App">
         <Header />
+        <Hero />
         <Route exact path="/">
           <Link to='/profile'>
             <p>Profile Page</p>
