@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -11,14 +12,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
     boxShadow: '0 1px 2px var(--shadow-2)'
   },
-  detailTitle: {
+  interestTitle: {
     marginRight: '1rem',
     width: '20%',
     background: '#0f8fff',
     color: 'white',
     padding: '3px'
   },
-  detailInfo: {
+  interestInfo: {
     background: '#94ddff',
     width: '70%'
   }
@@ -26,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Interests() {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const interests = useSelector((state) => state.profile.profile.interests)
+
 
   return (
     <Grid
@@ -33,51 +37,18 @@ function Interests() {
       className={classes.container}
     >
       <h4>Interests</h4>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          <span>Interest 1</span>
-        </p>
-        <p  className={classes.detailInfo}>
-          Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Interest 2
-        </p>
-        <p className={classes.detailInfo}>
-          Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Interest 3
-        </p>
-        <p className={classes.detailInfo}>
-          Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Interest 4
-        </p>
-        <p className={classes.detailInfo}>
-          Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Interest 5
-        </p>
-        <p className={classes.detailInfo}>
-          Some Info
-        </p>
-      </Grid>
+      {interests && interests.map(interest =>
+        <Grid
+          container>
+          <p className={classes.interestTitle}>
+            {interest.name}
+          </p>
+          <p className={classes.interestInfo}>
+            {interest.info}
+          </p>
+        </Grid>
+      )
+      }
     </Grid>
   )
 }

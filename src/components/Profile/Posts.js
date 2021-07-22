@@ -1,6 +1,7 @@
-import React from 'react'
-import PostModal from './PostModal.js'
+import React  from 'react'
+import PostModal from './ProfileModals/PostModal.js'
 import { Grid, makeStyles, Divider } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Aboutme() {
   const classes = useStyles()
+  const posts = useSelector((state) => state.profile.profile.posts)
+
 
   return (
     <Grid
@@ -27,70 +30,34 @@ function Aboutme() {
       direction="row"
       className={classes.container}
     >
-      <h3>Posts</h3>
-      <PostModal />
       <Grid
         container
         direction="column"
-        justifyContent="space-around"
-        alignItems="flex-start"
+        alignItems="center"
+        justifyContent="space-between"
+        style={{position: 'relative'}}
       >
-        <h4>TITLE OF POST 1</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium iure excepturi quisquam repellendus non exercitationem quasi, adipisci corrupti possimus et vero reprehenderit voluptates explicabo officia eveniet pariatur sed beatae.</p>
+        <h3 style={{ margin: 'auto', position: 'static' }}>Posts</h3>
+        <PostModal />
       </Grid>
-      <Divider />
-      <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="flex-start"
-      >
-        <h4>TITLE OF POST 2</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium iure excepturi quisquam repellendus non exercitationem quasi, adipisci corrupti possimus et vero reprehenderit voluptates explicabo officia eveniet pariatur sed beatae.</p>
-      </Grid>
-      <Divider />
-      <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="flex-start"
-      >
-        <h4>TITLE OF POST 3</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium iure excepturi quisquam repellendus non exercitationem quasi, adipisci corrupti possimus et vero reprehenderit voluptates explicabo officia eveniet pariatur sed beatae.</p>
-      </Grid>
-      <Divider />
-      <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="flex-start"
-      >
-        <h4>TITLE OF POST 4</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium iure excepturi quisquam repellendus non exercitationem quasi, adipisci corrupti possimus et vero reprehenderit voluptates explicabo officia eveniet pariatur sed beatae.</p>
-      </Grid>
-      <Divider />
-      <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="flex-start"
-      >
-        <h4>TITLE OF POST 5</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium iure excepturi quisquam repellendus non exercitationem quasi, adipisci corrupti possimus et vero reprehenderit voluptates explicabo officia eveniet pariatur sed beatae.</p>
-      </Grid>
-      <Divider />
-      <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="flex-start"
-      >
-        <h4>TITLE OF POST 6</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem laudantium iure excepturi quisquam repellendus non exercitationem quasi, adipisci corrupti possimus et vero reprehenderit voluptates explicabo officia eveniet pariatur sed beatae.</p>
-      </Grid>
-      <Divider />
+      {posts && posts.map(post =>
+        <Grid
+          container
+          direction="column"
+          justifyContent="space-around"
+          alignItems="flex-start"
+        >
+          <h4>{post.title}</h4>
+          <p>{post.content}</p>
+        </Grid>
+      )
+      }
     </Grid>
   )
 }
 
 export default Aboutme
+
+
+
+

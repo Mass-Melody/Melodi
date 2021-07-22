@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,12 +21,16 @@ const useStyles = makeStyles((theme) => ({
   },
   detailInfo: {
     background: '#94ddff',
-    width: '70%'
+    width: '70%',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }))
 
 function Details() {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const details = useSelector((state) => state.profile.profile.details)
 
   return (
     <Grid
@@ -33,51 +38,18 @@ function Details() {
       className={classes.container}
     >
       <h4>Details</h4>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Detail 1
-        </p>
-        <p className={classes.detailInfo}>
-          Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Detail 2
-        </p>
-        <p className={classes.detailInfo}>
-        Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Detail 3
-        </p>
-        <p className={classes.detailInfo}>
-        Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Detail 4
-        </p>
-        <p className={classes.detailInfo}>
-        Some Info
-        </p>
-      </Grid>
-      <Grid
-        container>
-        <p className={classes.detailTitle}>
-          Detail 5
-        </p>
-        <p className={classes.detailInfo}>
-        Some Info
-        </p>
-      </Grid>
+      {details && details.map(detail =>
+        <Grid
+          container>
+          <p className={classes.detailTitle}>
+            {detail.name}
+          </p>
+          <p className={classes.detailInfo}>
+            {detail.info}
+          </p>
+        </Grid>
+      )
+      }
     </Grid>
   )
 }
