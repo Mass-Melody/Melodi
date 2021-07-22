@@ -8,6 +8,7 @@ import store from './store'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Provider } from 'react-redux'
 import Header from './components/Header/header.js';
+import Footer from './components/Footer/footer.js';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             </Link>
             <p>Toggle Modal</p>
             <Modal />
+<<<<<<< HEAD
           </Route>
           <Route exact path="/profile">
             <Profile />
@@ -43,6 +45,20 @@ function App() {
           </Route>
         </div>
       </Provider>
+=======
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/search">
+          <Search />
+        </Route>
+        <Route exact path="/friends">
+          <Friends />
+        </Route>
+        <Footer />
+      </div>
+>>>>>>> origin/dev
     </Router>
   );
 }
