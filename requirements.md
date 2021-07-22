@@ -1,4 +1,5 @@
 # Software Requirements
+
   ## Vision
     + **What is the vision of this product?**
       + A social media platform focused around sharing and discovery of music/musicians.
@@ -8,6 +9,7 @@
       + This would be a major tool for assembling musical acts/organically growing fan communities/exposing others to new music in a more intimate fashion than something like SoundCloud.
   
   ## Scope (In/Out)
+  
     ### IN - What will your product do
       + **Describe the individual features that your product will do.**
       + Users can make an individual profile with password authentication. Profiles can be customized to display user info/photos.
@@ -21,6 +23,7 @@
       + Will not allow streaming media in chat.
   
   ## Minimum Viable Product
+  
     + **What will your MVP functionality be?**
       + User Profiles
       + Instant Messaging
@@ -38,12 +41,15 @@
       + Playlist Sharing
 
   ## Functional Requirements
+  
     + **List the functionality of your product. This will consist of tasks such as the following:**
       + Only the user can update their profile information
       + A user can search for other user profiles, musical acts' profiles, and musician types.
       + A user may instant message other users.
       + A user may listen to embedded playlists.
+      
   ## Data Flow
+  
     + Login: User is prompted to login, a db server is contacted to do basic auth.
     + Edit: Users may update their profile with text information, Spotify playlists, and photos. A db server is contacted to update the profile schema attached to this user. Uploading of files is handled via a WebRTC connection.
     + Message: Users may IM other users, a new room is created via Socket.io to facilitate chat.
@@ -52,6 +58,7 @@
     + Logout: User is able to view/search other profiles and play music while logged out.
   
   ## Non-Functional Requirements
+  
     + **Non-functional requirements are requirements that are not directly related to the functionality of the application but still important to the app.**
       + Security — Product will store username/password info in an auth db. Usernames must be kept unique. Based authentication token is issued to allow editing of a profile page.
       + Maintainability  + Manageability— Using React and identical user profile layouts means components are easily fixed/expanded upon. As there is only one web server currently deployed, an administrator can easily single out and patch the profile schema as required. As scalability issues occur, so too will our ability to manage so much data. 
