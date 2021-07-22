@@ -6,7 +6,7 @@ let cors = require('cors');
 let bodyParser = require('body-parser');
 let database = require('./data/db.js');
 
-const backend_URI = 
+const backend_URI = process.env.BACKEND_URI;
 
 const userRoute = require('../server/routes/user.routes')
 
