@@ -32,7 +32,6 @@ function App() {
             </Link>
             <p>Toggle Modal</p>
             <Modal />
-<<<<<<< HEAD
           </Route>
           <Route exact path="/profile">
             <Profile />
@@ -43,22 +42,9 @@ function App() {
           <Route exact path="/friends">
             <Friends />
           </Route>
+          <Footer />
         </div>
       </Provider>
-=======
-        </Route>
-        <Route exact path="/profile">
-          <Profile />
-        </Route>
-        <Route exact path="/search">
-          <Search />
-        </Route>
-        <Route exact path="/friends">
-          <Friends />
-        </Route>
-        <Footer />
-      </div>
->>>>>>> origin/dev
     </Router>
   );
 }
