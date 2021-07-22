@@ -1,6 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Modal, TextField, Button } from '@material-ui/core';
+import { Modal, TextField, Button, Grid } from '@material-ui/core';
+import InterestsTextBox from './Interests.js'
+import DetailsTextBox from './Details.js'
+import OtherTextBox from './Other.js'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -20,7 +23,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 400,
+    width: '1000px',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -66,26 +69,26 @@ export default function SimpleModal() {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">CREATE NEW POST</h2>
+      <h2 id="simple-modal-title">Edit Profile</h2>
       <form className={classes.root} noValidate autoComplete="off">
-      <TextField
-          required
-          id="outlined-required"
-          label="Title of Post"
-          variant="outlined"
-        />
-        <TextField
-          className={classes.textField}
-          id="outlined-multiline-static"
-          label="Content"
-          multiline
-          rows={8}
-          placeholder="What's on your mind?"
-          variant="outlined"
-        />
+        <Grid container
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid item>
+            <OtherTextBox />
+          </Grid>
+          <Grid item>
+            <InterestsTextBox />
+            <DetailsTextBox />
+          </Grid>
+        </Grid>
+
+
       </form>
       <Button variant="contained" color="primary">
-        POST
+        SAVE CHANGES
       </Button>
       <button className={classes.close} type="button" onClick={handleClose}>
         X
@@ -96,7 +99,7 @@ export default function SimpleModal() {
   return (
     <div>
       <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
-        New Post
+        Edit Profile
       </Button>
       <Modal
         open={open}
