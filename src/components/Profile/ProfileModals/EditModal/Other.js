@@ -1,17 +1,12 @@
 import React from 'react'
 import { TextField } from '@material-ui/core';
+import RenderCropper from '../../../cropper/cropper.js';
 
-
-function textboxInterests() {
+function TextboxInterests() {
+  
   return (
     <div>
-      <img style={{margin: 'auto', display: 'block'}}src="https://via.placeholder.com/171x180" alt="Hero" />
-      <TextField
-        required
-        id="outlined-required"
-        label="Profile Image"
-        variant="outlined"
-      />
+      <RenderCropper />
       <TextField
         required
         id="outlined-required"
@@ -54,4 +49,4 @@ function textboxInterests() {
   )
 }
 
-export default textboxInterests
+export default TextboxInterests;

@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
     width: '1000px',
+    height: '800px',
+    overflow: 'auto',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
