@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextField } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function TextboxOther(props) {
   const info = useSelector((state) => state.profile.profile)

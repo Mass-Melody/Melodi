@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
 import Edit from './ProfileModals/EditModal/EditModal.js'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
