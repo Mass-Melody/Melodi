@@ -30,7 +30,7 @@ export default function SimpleBackdrop({ children }) {
         <Backdrop 
           className={classes.backdrop}
           open={open}
-          // onClick={closeBackdrop}
+          onClick={closeBackdrop}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
