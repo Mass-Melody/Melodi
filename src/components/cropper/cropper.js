@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './cropper.css';
 
 import Cropper from 'react-easy-crop';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
-
+import { SnackbarContext } from '../snackbar/snackbar.js';
 import { generateDownload } from '../../utils/cropImage.js';
+import { IconButton, makeStyles } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Clear';
 
-function RenderCropper() {
+const useStyles = makeStyles({
+  iconButton: {
+    position: 'absolute',
+    top: '0',
+    left: '0',
+  },
+  cancelIcon: {
+    '&:hover': {
+      color:'red',
+    },
+  },
+});
+
+function RenderCropper({ handleCropper }) {
+
+  const classes = useStyles();
+
   const inputRef = React.useRef();
 
   const triggerFileSelectPopup = () => inputRef.current.click();
+
+  const setStateSnackbarContext = useContext(SnackbarContext);
 
   const [image, setImage] = React.useState(null);
   const [croppedArea, setCroppedArea] = React.useState(null);
@@ -32,11 +52,20 @@ function RenderCropper() {
   };
 
   const onDownload = () => {
+    if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning')}
     generateDownload(image, croppedArea);
+  }
+
+  const clear = () => {
+    if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning')}
+    setImage(null);
   }
 
   return (
     <div className='container'>
+      <IconButton className={classes.iconButton} onClick={handleCropper}>
+        <CancelIcon className={classes.cancelIcon} />
+      </IconButton>
       <div className='container-cropper'>
 				{image ? (
 					<>
@@ -74,7 +103,7 @@ function RenderCropper() {
 					style={{ display: "none" }}
 				/>
 
-				<Button variant='contained' color='primary' style={{marginRight: '10px'}} onClick={() => setImage(null)}>Clear</Button>
+				<Button variant='contained' color='primary' style={{marginRight: '10px'}} onClick={() => clear()}>Clear</Button>
 				<Button
 					variant='contained'
 					color='primary'

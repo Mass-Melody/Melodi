@@ -4,6 +4,7 @@ import { Modal, TextField, Button, Grid } from '@material-ui/core';
 import InterestsTextBox from './Interests.js'
 import DetailsTextBox from './Details.js'
 import OtherTextBox from './Other.js'
+import RenderSnackbar from '../../../snackbar/snackbar.js';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -79,7 +80,9 @@ export default function SimpleModal() {
           justifyContent="center"
         >
           <Grid item>
-            <OtherTextBox />
+            <RenderSnackbar>
+              <OtherTextBox />
+            </RenderSnackbar>
           </Grid>
           <Grid item>
             <InterestsTextBox />

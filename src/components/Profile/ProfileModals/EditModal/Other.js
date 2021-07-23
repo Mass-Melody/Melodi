@@ -1,12 +1,13 @@
 import React from 'react'
 import { TextField } from '@material-ui/core';
 import RenderCropper from '../../../cropper/cropper.js';
+import RenderAvatar from '../../../avatar/avatar.js';
 
 function TextboxInterests() {
   
   return (
     <div>
-      <RenderCropper />
+      <RenderAvatar />
       <TextField
         required
         id="outlined-required"
