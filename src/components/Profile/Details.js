@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Details() {
+function Details(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const details = useSelector((state) => state.profile.profile.details)

@@ -1,7 +1,8 @@
-import React  from 'react'
+import React from 'react'
 import PostModal from './ProfileModals/PostModal.js'
 import { Grid, makeStyles, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
+import { deletePost } from '../../store/profile.js'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -22,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
 function Aboutme() {
   const classes = useStyles()
   const posts = useSelector((state) => state.profile.profile.posts)
-
+  const dispatch = useDispatch()
+  const handleDelete = (id) => {
+    dispatch(deletePost(id))
+  }
 
   return (
     <Grid
@@ -35,7 +39,7 @@ function Aboutme() {
         direction="column"
         alignItems="center"
         justifyContent="space-between"
-        style={{position: 'relative'}}
+        style={{ position: 'relative' }}
       >
         <h3 style={{ margin: 'auto', position: 'static' }}>Posts</h3>
         <PostModal />
@@ -46,9 +50,11 @@ function Aboutme() {
           direction="column"
           justifyContent="space-around"
           alignItems="flex-start"
+          style={{ position: 'relative' }}
         >
           <h4>{post.title}</h4>
           <p>{post.content}</p>
+          <span style={{ position: 'absolute', right: 15, top: 15 }} onClick={() => handleDelete(post.id)}>x</span>
         </Grid>
       )
       }

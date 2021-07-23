@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Picture() {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const profile = useSelector((state) => state.profile.profile)
 
   return (
