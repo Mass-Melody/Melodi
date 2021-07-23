@@ -5,6 +5,7 @@ import InterestsTextBox from './Interests.js'
 import DetailsTextBox from './Details.js'
 import OtherTextBox from './Other.js'
 import RenderSnackbar from '../../../snackbar/snackbar.js';
+import SimpleBackdrop from '../../../backdrop/backdrop.js';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -81,7 +82,9 @@ export default function SimpleModal() {
         >
           <Grid item>
             <RenderSnackbar>
-              <OtherTextBox />
+              <SimpleBackdrop>
+                <OtherTextBox />
+              </SimpleBackdrop>
             </RenderSnackbar>
           </Grid>
           <Grid item>
