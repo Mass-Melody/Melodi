@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleModal() {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
@@ -84,10 +83,10 @@ export default function SimpleModal() {
           autoComplete="current-password"
           variant="outlined"
         />
-      </form>
-      <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary">
         Create Account
       </Button>
+      </form>
       <button className={classes.close} type="button" onClick={handleClose}>
         X
        </button>

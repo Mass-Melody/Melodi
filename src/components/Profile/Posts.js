@@ -1,6 +1,6 @@
 import React from 'react'
 import PostModal from './ProfileModals/PostModal.js'
-import { Grid, makeStyles, Divider } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePost } from '../../store/profile.js'
 

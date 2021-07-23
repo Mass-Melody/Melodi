@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, makeStyles, Modal, TextField, Button } from '@material-ui/core';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import Add from '../Search/add.js';
 // import Search from '../Search/search.js';
 // import Picture from '../Search/picture.js';
@@ -83,6 +83,10 @@ function Header() {
     e.preventDefault()
     console.log(formData)
     // dispatch(createAccount(formData))
+
+    // Return the created account object
+    // Set state to object
+    // Create new dynamic route with the username
     handleClose()
   }
 
