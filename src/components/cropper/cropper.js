@@ -5,7 +5,7 @@ import Cropper from 'react-easy-crop';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 
-import { generateDownload } from '../utils/cropImage.js';
+import { generateDownload } from '../../utils/cropImage.js';
 
 function RenderCropper() {
   const inputRef = React.useRef();
