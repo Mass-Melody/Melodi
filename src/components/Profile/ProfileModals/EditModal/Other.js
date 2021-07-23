@@ -19,6 +19,9 @@ function TextboxOther(props) {
         name="hero"
         defaultValue={info.hero}
         onChange={(e) => props.handleChange(e)}
+        style={{
+          marginTop: '200px',
+        }}
       />
       <TextField
         required
