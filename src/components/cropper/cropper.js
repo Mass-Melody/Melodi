@@ -9,6 +9,11 @@ import { generateDownload } from '../../utils/cropImage.js';
 import { IconButton, makeStyles } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Clear';
 
+import getCroppedImg from '../../utils/cropImage.js';
+
+// must convert to file object before posting to AWS S3 bucket
+import dataURLtoFile from '../../utils/dataURLtoFile';
+
 const useStyles = makeStyles({
   iconButton: {
     position: 'absolute',
@@ -60,6 +65,18 @@ function RenderCropper({ handleCropper }) {
     if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning')}
     setImage(null);
   }
+
+	const upload = async () => {
+		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning') }
+
+		const canvas = await getCroppedImg(image, croppedArea);
+		console.log('cropped image', canvas);
+		const canvasDataUrl = canvas.toDataURL('image/jpeg');
+		// console.log('canvas data url', canvasDataUrl);
+
+		const convertedUrlToFile = dataURLtoFile(canvasDataUrl, 'cropped-image.jpeg');
+		console.log('file object', convertedUrlToFile);
+	}
 
   return (
     <div className='container'>
@@ -115,7 +132,7 @@ function RenderCropper({ handleCropper }) {
 				<Button variant='contained' color='secondary' onClick={onDownload} style={{marginRight: '10px'}}>
 					Download
 				</Button>
-				<Button variant='contained' color='primary' style={{marginRight: '10px'}}>Upload</Button>
+				<Button variant='contained' color='primary' onClick={upload} style={{marginRight: '10px'}}>Upload</Button>
 			</div>
     </div>
   )
