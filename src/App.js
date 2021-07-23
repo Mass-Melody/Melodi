@@ -14,11 +14,8 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-
-
         <div styles={{ margin: 'auto', background: '#e0e0e0' }} className="App">
           <Header />
-
           <Route exact path="/">
             <Hero />
             <Link to='/profile'>

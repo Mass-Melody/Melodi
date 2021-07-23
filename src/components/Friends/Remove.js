@@ -1,6 +1,8 @@
 import React from 'react'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { makeStyles } from '@material-ui/core';
+import { removeFriend } from '../../store/profile.js';
+import { useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   removeButton: {
@@ -11,12 +13,16 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Remove() {
+function Remove({friendName}) {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const removePerson = (person) => {
+    dispatch(removeFriend(person.username))
+  }
 
   return (
     <div>
-      <RemoveCircleIcon className={classes.removeButton} />
+      <RemoveCircleIcon onClick={() => removePerson(friendName)}className={classes.removeButton} />
     </div>
   )
 }

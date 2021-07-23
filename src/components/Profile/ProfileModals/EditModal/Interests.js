@@ -1,41 +1,26 @@
 import React from 'react'
 import { TextField} from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 
-function textboxInterests() {
+function TextboxInterests(props) {
+  const interests = useSelector((state) => state.profile.profile.interests)
+  const sortedInterests = interests.sort((a, b) => a.id - b.id)
+  
   return (
     <div>
-      <TextField
-          required
-          id="outlined-required"
-          label="Interest1"
-          variant="outlined"
-        />
+      {sortedInterests && sortedInterests.map(interest =>
         <TextField
           required
           id="outlined-required"
-          label="Interest2"
+          label={interest.name}
           variant="outlined"
+          name={interest.id}
+          defaultValue={interest.info}
+          onChange={(e) => props.handleChangeInterests(e, interest.name)}
         />
-        <TextField
-          required
-          id="outlined-required"
-          label="Interest3"
-          variant="outlined"
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Interest4"
-          variant="outlined"
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Interest5"
-          variant="outlined"
-        />
+      )}
     </div>
   )
 }
 
-export default textboxInterests
+export default TextboxInterests

@@ -2,6 +2,7 @@ import React from 'react'
 import Remove from './Remove.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Friends() {
+  const friendsList = useSelector((state) => state.profile.profile.friends)
   const classes = useStyles()
   return (
     <Grid
@@ -44,74 +46,22 @@ function Friends() {
         item
         className={classes.searchHeader}
       >
-        <h3>Friends (393)</h3>
+        <h3>Friends ({friendsList.length})</h3>
       </Grid>
-      <Grid
-        item
-      >
-        {/* Item 1 */}
-        <Grid
-          container
-          direction="row"
-          align-items="center"
-          justifyContent="space-between"
-          className={classes.searchResults}
-        >
+      {friendsList && friendsList.map(friend =>
+        <Grid item>
           <Grid
-            item
+            container
+            direction="row"
+            align-items="center"
+            justifyContent="space-between"
+            className={classes.searchResults}
           >
-            <Picture />
-          </Grid>
-          <Grid
-            item
-          >
-            <Remove />
+            <Grid item><Picture friendObj={friend}/></Grid>
+            <Grid item><Remove friendName={friend} /></Grid>
           </Grid>
         </Grid>
-      </Grid>
-
-      <Grid item>
-        {/* Item 2 */}
-        <Grid
-          container
-          direction="row"
-          align-items="center"
-          justifyContent="space-between"
-          className={classes.searchResults}
-        >
-          <Grid
-            item
-          >
-            <Picture />
-          </Grid>
-          <Grid
-            item
-          >
-            <Remove />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        {/* Item 3 */}
-        <Grid
-          container
-          direction="row"
-          align-items="center"
-          justifyContent="space-between"
-          className={classes.searchResults}
-        >
-          <Grid
-            item
-          >
-            <Picture />
-          </Grid>
-          <Grid
-            item
-          >
-            <Remove />
-          </Grid>
-        </Grid>
-      </Grid>
+      )}
     </Grid>
   )
 }
