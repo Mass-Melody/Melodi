@@ -1,6 +1,8 @@
 import React from 'react'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import { useDispatch } from 'react-redux'
+import { addFriend } from '../../store/profile.js'
 
 const useStyles = makeStyles((theme) => ({
   addButton: {
@@ -10,12 +12,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Add() {
+function Add(props) {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+  const addNewFriend = (user) => {
+    dispatch(addFriend(user))
+  }
 
   return (
     <div>
-      <AddCircleIcon className={classes.addButton}/>
+      <AddCircleIcon onClick={() => addNewFriend(props.userObj)} className={classes.addButton} />
     </div>
   )
 }

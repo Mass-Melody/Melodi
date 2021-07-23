@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, TextField, Button } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { newPost } from '../../../store/profile.js'
 
 
 function rand() {
@@ -54,15 +56,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleModal() {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
+  const dispatch = useDispatch()
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
-  // const change = (e) => {
-  //   [e.target.name]: e.target.value
-  // }
+  const handleChange = (e) => {
+    if (e.target.name === 'title') {
+      setTitle(e.target.value)
+    } else if (e.target.name === 'content') {
+      setContent(e.target.value)
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const data = {
+      title: title,
+      content: content
+    }
+    dispatch(newPost(data))
+    handleClose()
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -75,26 +91,30 @@ export default function SimpleModal() {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">CREATE NEW POST</h2>
-      <form className={classes.root} noValidate autoComplete="off">
-      <TextField
+      <form onSubmit={(e) => handleSubmit(e)} className={classes.root} noValidate autoComplete="off">
+        <TextField
           required
           id="outlined-required"
           label="Title of Post"
           variant="outlined"
+          name="title"
+          onChange={(e) => handleChange(e)}
         />
         <TextField
           className={classes.textField}
           id="outlined-multiline-static"
           label="Content"
+          name="content"
           multiline
           rows={8}
           placeholder="What's on your mind?"
           variant="outlined"
+          onChange={(e) => handleChange(e)}
         />
-      </form>
-      <Button variant="contained" color="primary">
-        POST
+        <Button type="submit" variant="contained" color="primary">
+          POST
       </Button>
+      </form> 
       <button className={classes.close} type="button" onClick={handleClose}>
         X
        </button>

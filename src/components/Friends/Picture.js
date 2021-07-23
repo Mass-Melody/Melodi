@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Picture() {
+function Picture(props) {
   const classes = useStyles()
   return (
     <Grid
@@ -22,7 +22,7 @@ function Picture() {
       <Grid
         item
       >
-        <Avatar alt="Remy Sharp" src="https://via.placeholder.com/60x60" className={classes.picture} />
+        <Avatar alt="Remy Sharp" src={props.friendObj.pictures.lg} className={classes.picture} />
       </Grid>
       <Grid
         item
@@ -30,8 +30,9 @@ function Picture() {
         align-itmes="center"
         justifyContent="flex-start"
       >
-        <p>Seattle, WA</p>
-        <p>Drummer</p>
+        <p>{props.friendObj.firstName} {props.friendObj.lastName}</p>
+        <p>{props.friendObj.location}</p>
+        <p>{props.friendObj.instrument}</p>
       </Grid>
     </Grid>
   )

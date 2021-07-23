@@ -2,6 +2,7 @@ import React from 'react'
 import Add from './Add.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Search() {
   const classes = useStyles()
+  const listOfUsers = useSelector((state) => state.users)
+
   return (
     <Grid
       container
@@ -47,73 +50,21 @@ function Search() {
       >
         <h3>Search results for -Search goes here-</h3>
       </Grid>
-      <Grid
-        item
-      >
-        {/* Item 1 */}
-        <Grid
-          container
-          direction="row"
-          align-items="center"
-          justifyContent="space-between"
-          className={classes.searchResults}
-        >
+      {listOfUsers && listOfUsers.map(user =>
+        <Grid item>
           <Grid
-            item
+            container
+            direction="row"
+            align-items="center"
+            justifyContent="space-between"
+            className={classes.searchResults}
           >
-            <Picture />
-          </Grid>
-          <Grid
-            item
-          >
-            <Add />
+            <Grid item><Picture userObj={user}/></Grid>
+            <Grid item><Add userObj={user} /></Grid>
           </Grid>
         </Grid>
+      )}
       </Grid>
-
-      <Grid item>
-        {/* Item 2 */}
-        <Grid
-          container
-          direction="row"
-          align-items="center"
-          justifyContent="space-between"
-          className={classes.searchResults}
-        >
-          <Grid
-            item
-          >
-            <Picture />
-          </Grid>
-          <Grid
-            item
-          >
-            <Add />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        {/* Item 3 */}
-        <Grid
-          container
-          direction="row"
-          align-items="center"
-          justifyContent="space-between"
-          className={classes.searchResults}
-        >
-          <Grid
-            item
-          >
-            <Picture />
-          </Grid>
-          <Grid
-            item
-          >
-            <Add />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
   )
 }
 export default Search
