@@ -87,6 +87,7 @@ function Header() {
     // Return the created account object
     // Set state to object
     // Create new dynamic route with the username
+    // Go to the created profile/route
     handleClose()
   }
 
