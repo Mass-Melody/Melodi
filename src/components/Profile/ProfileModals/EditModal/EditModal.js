@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import InterestsTextBox from './Interests.js'
 import DetailsTextBox from './Details.js'
 import OtherTextBox from './Other.js'
+import RenderSnackbar from '../../../snackbar/snackbar.js';
+import SimpleBackdrop from '../../../backdrop/backdrop.js';
 import {editProfile} from '../../../../store/profile.js'
 
 function rand() {
@@ -26,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
     width: '1000px',
+    height: '800px',
+    overflow: 'auto',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -116,7 +120,11 @@ export default function SimpleModal() {
           justifyContent="center"
         >
           <Grid item>
-            <OtherTextBox handleChange={handleChange} />
+            <RenderSnackbar>
+              <SimpleBackdrop>
+                <OtherTextBox handleChange={handleChange}/>
+              </SimpleBackdrop>
+            </RenderSnackbar>
           </Grid>
           <Grid item>
             <InterestsTextBox handleChangeInterests={handleChangeInterests} />
