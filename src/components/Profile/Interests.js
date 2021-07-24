@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Interests() {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const interests = useSelector((state) => state.profile.profile.interests)
 
 

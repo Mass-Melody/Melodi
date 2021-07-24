@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField } from '@material-ui/core';
 import RenderCropper from '../../../cropper/cropper.js';
 import RenderAvatar from '../../../avatar/avatar.js';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function TextboxOther(props) {
   const info = useSelector((state) => state.profile.profile)

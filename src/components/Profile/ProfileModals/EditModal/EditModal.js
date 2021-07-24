@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Modal, TextField, Button, Grid } from '@material-ui/core';
+import { Modal, Button, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux'
 import InterestsTextBox from './Interests.js'
 import DetailsTextBox from './Details.js'
@@ -66,8 +66,6 @@ export default function SimpleModal() {
   const [open, setOpen] = React.useState(false);
   const profileData = useSelector((state) => state.profile.profile)
   const [formData, setFormData] = useState(profileData)
-  const [details, setDetails] = useState([])
-  const [interests, setInterests] = useState([])
 
   const handleOpen = () => {
     setOpen(true);
@@ -90,8 +88,6 @@ export default function SimpleModal() {
       name: name,
       info: e.target.value
     }
-
-    console.log(editDetail.id)
     let updatedDetail = formData.details.filter(value => value.id !== editDetail.id)
     setFormData({...formData, details: [...updatedDetail, editDetail]})
   }
