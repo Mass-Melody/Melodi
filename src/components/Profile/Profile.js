@@ -8,6 +8,7 @@ import Playlist from './Playlist.js'
 import Interests from './Interests.js'
 import Details from './Details.js'
 import Aboutme from './Aboutme.js'
+import Contacts from './Contacts/Contacts.js'
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +29,7 @@ function Profile() {
   const classes = useStyles()
 
   return (
+    <>
     <Grid 
     container
     direction="row"
@@ -53,7 +55,8 @@ function Profile() {
         <Posts />
       </Grid>
     </Grid>
-
+    <Contacts />
+</>
   )
 }
 
