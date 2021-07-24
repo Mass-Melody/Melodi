@@ -82,7 +82,10 @@ const upload = async () => {
 			console.log(' get all formData', formData.getAll('croppedImage'));
 
 			// the url below will need to be replaced with the deployed url of the photo upload server
-			const response = await fetch('http://localhost:7000/api/users/setProfilePic', {
+
+			const photoServer = process.env.REACT_APP_PHOTO_SERVER;
+
+			const response = await fetch(`${photoServer}api/users/setProfilePic`, {
 				method: 'POST',
 				body: formData,
 				type: 'multipart/form-data',
@@ -90,8 +93,9 @@ const upload = async () => {
 
 			response.json().then(resp => {
 
-				// The log below is the string you will need to store when updating the user's db record with the profile photo
-				console.log('photo location url', resp.data.location);
+				// The variable below is the string you will need to store when updating the user's db record with the profile photo
+				const profilePhotoUrl = resp.data.location;
+				console.log(profilePhotoUrl);
 			});
 
 		} catch (err) {
