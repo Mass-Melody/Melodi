@@ -72,6 +72,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ## User Stories
 
   1. **As a basic user, I would like to be able to create a custom username and password for individuality and security.**
+  
     + (Medium)
 
     + **Feature Tasks:**
@@ -99,6 +100,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
   3. **As a basic user, I want to be able to edit the contents of my profile, while other users are only able to view it.**
+    
     + (Medium-Small)
 
     + **Feature Tasks:**
@@ -111,6 +113,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
   4. **As a recruiter, I’d like to be able to see who helped work on this application.**
+    
     + (Small)
 
     + **Feature Tasks:**
@@ -119,6 +122,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
       + Ensure profile links photos display properly.
 
   5. **As a user, I want to be able to create custom playlists and post them to my profile.**
+    
     + (Medium-Large)
 
     + **Feature Tasks:**
