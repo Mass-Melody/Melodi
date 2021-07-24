@@ -131,6 +131,7 @@ const Window = () => {
     setMessage(e.target.value);
     console.log(message)
   }
+  
   return (
     <Page>
       <Container>
