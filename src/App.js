@@ -12,8 +12,8 @@ import Footer from './components/Footer/footer.js';
 import LoginContext from './auth/context.js'
 
 function App() {
-  // Create use effect to  database containing all user info
-  // Create a store that will store this array of username
+  // Create use effect to database containing all users info
+  // Create a store that will store this array of usernames
   // Use the store to create dynamic routes for each of the usernames
   // Clicking on profile, will bring you to the dynamic route based on your username
   
