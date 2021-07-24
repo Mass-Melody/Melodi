@@ -1,6 +1,6 @@
 import React from 'react';
 import Profile from './components/Profile/Profile.js'
-import Hero from './components/Home/Hero.js'
+import Home from './components/Home/Home.js'
 import Modal from './components/CreateAccModal/Modal.js'
 import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
@@ -21,10 +21,10 @@ function App() {
     <Router>
       <LoginContext>
         <Provider store={store}>
-          <div styles={{ margin: 'auto', background: '#e0e0e0', position: 'relative' }} className="App">
+          <div styles={{ margin: 'auto', background: '#e0e0e0', position: 'relative'}} className="App">
             <Header />
             <Route exact path="/">
-              <Hero />
+              
               <Link to='/profile'>
                 <p>Profile Page</p>
               </Link>
@@ -36,7 +36,9 @@ function App() {
               </Link>
               <p>Toggle Modal</p>
               <Modal />
+              <Home />
             </Route>
+            
             <Route exact path="/profile">
               <Profile />
             </Route>

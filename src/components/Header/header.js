@@ -25,7 +25,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   container: {
     border: '2px black solid',
-    width: '100vw',
+    width: '100%',
     height: '200px',
     marginBottom: '1rem',
     padding: '1rem'
