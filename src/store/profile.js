@@ -34,7 +34,7 @@ export default function reducer(state = initialState, action) {
       return { ...state, personalProfile: payload.username, profile: payload }
     case 'navigateProfile':
       console.log("STATE: ", payload)
-      return { ...state, personalProfile: payload.username, profile: payload }
+      return { ...state, profile: payload }
     case 'newPost':
       let id = state.profile.posts.length + 11
       payload[id] = id
@@ -51,7 +51,7 @@ export default function reducer(state = initialState, action) {
     case 'getAllUsers':
       return { ...state, users: payload }
     case 'yourProfile':
-      return { ...state, users: payload }
+      return { ...state, profile: payload }
     default:
       return state
   }
@@ -138,11 +138,11 @@ export const navigateProfile = (user) => {
   }
 }
 
-export const yourProfile = (user) => {
-  
+export const yourProfile = (user, listOfUsers) => {
+  let personal = listOfUsers.users.filter(profile => user === profile.username)[0]
   return {
     type: 'yourProfile',
-    payload: user
+    payload: personal
   }
 }
 
