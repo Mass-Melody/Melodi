@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Add from './Add.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux'
-import { getAllUsers } from '../../store/profile.js'
+import { useSelector } from 'react-redux'
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -38,12 +38,6 @@ function Search() {
   const classes = useStyles()
   const currentState = useSelector((state) => state.profile)
   const filteredUsers = currentState.users.filter(value => value.username !== currentState.personalProfile)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    console.log('USE EFFECT IS WORKING')
-    dispatch(getAllUsers())
-  }, [])
 
   return (
     <Grid
