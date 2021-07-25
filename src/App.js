@@ -16,7 +16,10 @@ function App() {
   // Create a store that will store this array of usernames
   // Use the store to create dynamic routes for each of the usernames
   // Clicking on profile, will bring you to the dynamic route based on your username
-  
+  // useEffect(() => {
+  //   dispatch(setProfile(cookie.auth.username))
+  // }, [])
+
   return (
     <Router>
       <LoginContext>
@@ -37,9 +40,7 @@ function App() {
               <p>Toggle Modal</p>
               <Modal />
             </Route>
-            <Route exact path="/profile">
-              <Profile />
-            </Route>
+            <Route path="/users/account/:username" component={Profile} />
             <Route exact path="/search">
               <Search />
             </Route>
