@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import './cropper.css';
-
 import Cropper from 'react-easy-crop';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
@@ -66,17 +65,44 @@ function RenderCropper({ handleCropper }) {
     setImage(null);
   }
 
-	const upload = async () => {
-		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning') }
+	
+const upload = async () => {
+		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning'); }
 
 		const canvas = await getCroppedImg(image, croppedArea);
 		console.log('cropped image', canvas);
 		const canvasDataUrl = canvas.toDataURL('image/jpeg');
-		// console.log('canvas data url', canvasDataUrl);
 
 		const convertedUrlToFile = dataURLtoFile(canvasDataUrl, 'cropped-image.jpeg');
-		console.log('file object', convertedUrlToFile);
-	}
+
+		try {
+			let formData = new FormData();
+			formData.append('croppedImage', convertedUrlToFile);
+
+			console.log(' get all formData', formData.getAll('croppedImage'));
+
+			// the url below will need to be replaced with the deployed url of the photo upload server
+
+			const photoServer = process.env.REACT_APP_PHOTO_SERVER;
+
+			const response = await fetch(`${photoServer}api/users/setProfilePic`, {
+				method: 'POST',
+				body: formData,
+				type: 'multipart/form-data',
+			});
+
+			response.json().then(resp => {
+
+				// The variable below is the string you will need to store when updating the user's db record with the profile photo
+				const profilePhotoUrl = resp.data.location;
+				console.log(profilePhotoUrl);
+			});
+
+		} catch (err) {
+			console.error('====== ERROR FETCHING DATA FROM PHOTO UPLOAD SERVER ======:', err.message);
+		}
+
+	};
 
   return (
     <div className='container'>
