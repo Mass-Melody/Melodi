@@ -39,7 +39,7 @@ function Picture() {
         alignItems="center"
       >
         <Grid className={classes.imageContainer}>
-          <img className={classes.image} src={profile.pictures.full} alt="Profile"/>
+          <img className={classes.image} src={profile.picture} alt="Profile"/>
         </Grid>
         <Grid>
           <p>{profile.age} Years Old</p>

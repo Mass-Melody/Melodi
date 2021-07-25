@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 function TextboxDetails(props) {
   const details = useSelector((state) => state.profile.profile.details)
   const sortedDetails = details.sort((a, b) => a.id - b.id)
-  
+
   return (
     <div>
       {sortedDetails && sortedDetails.map(detail =>

@@ -22,7 +22,7 @@ function Picture(props) {
       <Grid
         item
       >
-        <Avatar alt="Remy Sharp" src={props.userObj.pictures.lg} className={classes.picture} />
+        <Avatar alt="Remy Sharp" src={props.userObj.picture} className={classes.picture} />
       </Grid>
       <Grid
         item

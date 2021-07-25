@@ -88,7 +88,7 @@ export default function SimpleModal() {
       name: name,
       info: e.target.value
     }
-    let updatedDetail = formData.details.filter(value => value.id !== editDetail.id)
+    let updatedDetail = formData.details.filter(value => parseInt(value.id) !== editDetail.id)
     setFormData({...formData, details: [...updatedDetail, editDetail]})
   }
 
@@ -99,7 +99,7 @@ export default function SimpleModal() {
       info: e.target.value
     }
 
-    let updatedInterest = formData.interests.filter(value => value.id !== editInterest.id)
+    let updatedInterest = formData.interests.filter(value => parseInt(value.id) !== editInterest.id)
     setFormData({...formData, interests: [...updatedInterest, editInterest]})
   }
 
