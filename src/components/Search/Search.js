@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Add from './Add.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles } from '@material-ui/core';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllUsers } from '../../store/profile.js'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -32,9 +33,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+
 function Search() {
   const classes = useStyles()
-  const listOfUsers = useSelector((state) => state.users)
+  const currentState = useSelector((state) => state.profile)
+  const filteredUsers = currentState.users.filter(value => value.username !== currentState.personalProfile)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log('USE EFFECT IS WORKING')
+    dispatch(getAllUsers())
+  }, [])
 
   return (
     <Grid
@@ -50,7 +59,7 @@ function Search() {
       >
         <h3>Search results for -Search goes here-</h3>
       </Grid>
-      {listOfUsers && listOfUsers.map(user =>
+      {filteredUsers && filteredUsers.map(user =>
         <Grid item>
           <Grid
             container
@@ -59,12 +68,12 @@ function Search() {
             justifyContent="space-between"
             className={classes.searchResults}
           >
-            <Grid item><Picture userObj={user}/></Grid>
+            <Grid item><Picture userObj={user} /></Grid>
             <Grid item><Add userObj={user} /></Grid>
           </Grid>
         </Grid>
       )}
-      </Grid>
+    </Grid>
   )
 }
 export default Search
