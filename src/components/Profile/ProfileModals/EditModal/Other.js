@@ -44,7 +44,7 @@ function TextboxOther(props) {
       <TextField
         required
         id="outlined-required"
-        label="Last Name"
+        label="Username"
         variant="outlined"
         name="username"
         defaultValue={info.username}
