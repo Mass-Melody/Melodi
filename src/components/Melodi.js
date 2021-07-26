@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Link } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Profile from './Profile/Profile.js'
 import Hero from './Home/Hero.js'
 import Modal from './CreateAccModal/Modal.js'
@@ -12,6 +12,7 @@ import { getAllUsers } from '../store/profile.js'
 
 
 function Melodi() {
+  const currentUser = useSelector((state) => state.profile.personalProfile)
   const dispatch = useDispatch()
 
 
@@ -25,23 +26,19 @@ function Melodi() {
       <Header />
       <Route exact path="/">
         <Hero />
-        <Link to='/profile'>
-          <p>Profile Page</p>
-        </Link>
         <Link to='/search'>
           <p>Search Page</p>
         </Link>
-        <Link to='/friends'>
+        {/* <Link to='/friends'>
           <p>Friends Page</p>
-        </Link>
-        <p>Toggle Modal</p>
+        </Link> */}
         <Modal />
       </Route>
       <Route path="/users/account/:username" component={Profile} />
       <Route exact path="/search">
         <Search />
       </Route>
-      <Route exact path="/friends">
+      <Route exact path="/friends/:username" component={Friends}>
         <Friends />
       </Route>
       <Footer />

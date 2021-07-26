@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Playlist() {
   const classes = useStyles()
-  const playlist= useSelector((state) => state.profile.profile)
+  const playlist = useSelector((state) => state.profile.profile.playlist)
 
   return (
     <Grid
@@ -27,7 +27,12 @@ function Playlist() {
       className={classes.container}
     >
       <h4>Playlist</h4>
-      <iframe src="https://open.spotify.com/embed/playlist/6BnKZ1GGADXMxtjZLjzAMa" width="100%" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      {playlist ?
+        <iframe src={playlist} width="100%" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        :
+        <p>'Add a playlist!'</p>
+      }
+
     </Grid>
   )
 }

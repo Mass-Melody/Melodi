@@ -59,14 +59,9 @@ export default function reducer(state = initialState, action) {
 
 export const setProfile = (profileInfo) => async dispatch => {
   let userProfile = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${profileInfo.username}`)
-  console.log('WHOLE OBJ', userProfile.data)
-  console.log(userProfile.data.interests)
-  console.log(userProfile.data.details)
-  console.log(userProfile.data.posts)
   let parseInterests = JSON.parse(userProfile.data.interests);
   let parseDetails = JSON.parse(userProfile.data.details);
   let parsePosts = JSON.parse(userProfile.data.posts)
-  console.log(parsePosts)
   userProfile.data.interests = parseInterests;
   userProfile.data.details = parseDetails;
   userProfile.data.posts = parsePosts;
@@ -76,20 +71,23 @@ export const setProfile = (profileInfo) => async dispatch => {
   })
 }
 
-export const editProfile = (info) => async dispatch => {
+export const editProfile = (info, userProfileName) => async dispatch => {
   // PUT to database and edit VIA username
-  let parsedProfile = {
+  // Stringify then put in database
+  let stringifiedProfile = {
     ...info,
     interests: JSON.stringify(info.interests),
     details: JSON.stringify(info.details),
     posts: JSON.stringify(info.posts)
   }
-  console.log("PARSED PROFILE", parsedProfile)
-
+  console.log('USER PROFILE NAME', userProfileName)
+  console.log('Stringified PROFILE', stringifiedProfile)
+  // Turn back into Json and display
   let { url, profile } = {
-    url: `${process.env.REACT_APP_API}/api/v1/allUsers/${parsedProfile.username}`,
-    profile: parsedProfile
+    url: `${process.env.REACT_APP_API}/api/v1/allUsers/${userProfileName}`,
+    profile: stringifiedProfile
   }
+  // AXIOS CALL
   await axios.put(url, profile)
     .then(response => {
       console.log("RESPONSE DATA DID IT WORK???", response.data)
@@ -140,6 +138,7 @@ export const navigateProfile = (user) => {
 
 export const yourProfile = (user, listOfUsers) => {
   let personal = listOfUsers.users.filter(profile => user === profile.username)[0]
+  console.log(personal)
   return {
     type: 'yourProfile',
     payload: personal
@@ -154,7 +153,6 @@ export const getAllUsers = () => async dispatch => {
     let parseInterests = JSON.parse(profile.interests);
     let parseDetails = JSON.parse(profile.details);
     let parsePosts = JSON.parse(profile.posts)
-    console.log(parsePosts)
     profile.interests = parseInterests;
     profile.details = parseDetails;
     profile.posts = parsePosts;
