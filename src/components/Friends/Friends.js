@@ -1,8 +1,10 @@
-import React from 'react'
-import Remove from './Remove.js'
-import Picture from './Picture.js'
+import React, { useEffect } from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux'
+import { useParams } from "react-router-dom";
+import Remove from './Remove.js'
+import Picture from './Picture.js'
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -34,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
 function Friends() {
   const friendsList = useSelector((state) => state.profile.profile.friends)
   const classes = useStyles()
+  const { username } = useParams()
+
   return (
     <Grid
       container
@@ -57,7 +61,7 @@ function Friends() {
             justifyContent="space-between"
             className={classes.searchResults}
           >
-            <Grid item><Picture friendObj={friend}/></Grid>
+            <Grid item><Picture friendObj={friend} /></Grid>
             <Grid item><Remove friendName={friend} /></Grid>
           </Grid>
         </Grid>

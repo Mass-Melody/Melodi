@@ -13,6 +13,10 @@ function Login() {
   const currentUser = useSelector((state) => state.profile.personalProfile)
   const listOfUsers = useSelector((state) => state.profile)
 
+  // WE NEED TO FIND A WAY TO UPDATE WHEN WE GO CLICK GO TO PROFILE SO THAT IT BRINGS REDIRECTS US TO THE PAGE WITH THE  CORRECT INFO
+  // useEffect(() => {
+    
+  // }, [allState])
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value })
@@ -24,24 +28,17 @@ function Login() {
     dispatch(setProfile(user))
   }
 
-  function homePage(){
-    dispatch(yourProfile(currentUser, listOfUsers))
+  // Maintains the user profile from the very first render
+  function homePage(personalProfile, users) {
+    console.log("THIS IS IN LOGIN COMPONET", personalProfile)
+    dispatch(yourProfile(personalProfile, users))
   }
-
-  // console.log(currentUser)
-  // if (!currentUser) {
-  //   e.preventDefault();
-  //   userContext.login(user)
-  //   dispatch(setProfile(user))
-  // } else {
-  //   dispatch(yourProfile(currentUser))
-  // }
 
   return (
     <If condition={userContext.isLoggedIn}>
       <Then>
         <Button type="button" variant="danger" onClick={userContext.logout}>Logout</Button>
-        <Link onClick={() => homePage()} to={`/users/account/${user.username}`}>
+        <Link onClick={() => homePage(currentUser, listOfUsers)} to={`/users/account/${user.username}`}>
           GO TO PROFILE
           </Link>
       </Then>
@@ -50,7 +47,6 @@ function Login() {
           <input placeholder="username" name="username" onChange={handleChange} />
           <input name="password" type="password" onChange={handleChange} />
           <Button type="submit" variant="outline-light primary">Login</Button>
-
         </form>
       </Else>
     </If>
