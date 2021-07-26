@@ -1,22 +1,16 @@
 import React from 'react'
 import { TextField } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import RenderCropper from '../../../cropper/cropper.js';
+import RenderAvatar from '../../../avatar/avatar.js';
+import { useSelector } from 'react-redux';
 
 function TextboxOther(props) {
   const info = useSelector((state) => state.profile.profile)
 
   return (
     <div>
-      <img style={{margin: 'auto', display: 'block', height: 100, width: 100}}src={info.pictures.lg} alt="Hero" />
-      <TextField
-        required
-        id="outlined-required"
-        label="Profile Image"
-        variant="outlined"
-        name="pictures"
-        defaultValue={info.pictures.full}
-        onChange={(e) => props.handleChange(e)}
-      />
+
+      <RenderAvatar />
       <TextField
         required
         id="outlined-required"
@@ -25,6 +19,9 @@ function TextboxOther(props) {
         name="hero"
         defaultValue={info.hero}
         onChange={(e) => props.handleChange(e)}
+        style={{
+          marginTop: '200px',
+        }}
       />
       <TextField
         required
@@ -47,7 +44,7 @@ function TextboxOther(props) {
       <TextField
         required
         id="outlined-required"
-        label="Last Name"
+        label="Username"
         variant="outlined"
         name="username"
         defaultValue={info.username}
@@ -86,4 +83,4 @@ function TextboxOther(props) {
   )
 }
 
-export default TextboxOther
+export default TextboxOther;

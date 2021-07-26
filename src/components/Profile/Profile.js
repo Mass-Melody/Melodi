@@ -8,7 +8,9 @@ import Playlist from './Playlist.js'
 import Interests from './Interests.js'
 import Details from './Details.js'
 import Aboutme from './Aboutme.js'
+import Contacts from './Contacts/Contacts.js'
 import { makeStyles } from '@material-ui/core';
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -26,8 +28,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
   const classes = useStyles()
+  const { username } = useParams();
 
   return (
+    <>
     <Grid 
     container
     direction="row"
@@ -53,7 +57,8 @@ function Profile() {
         <Posts />
       </Grid>
     </Grid>
-
+    <Contacts />
+</>
   )
 }
 

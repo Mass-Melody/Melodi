@@ -4,6 +4,7 @@ import Picture from './Picture.js'
 import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux'
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     background: '#e0e0e0',
@@ -32,9 +33,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+
 function Search() {
   const classes = useStyles()
-  const listOfUsers = useSelector((state) => state.users)
+  const currentState = useSelector((state) => state.profile)
+  const filteredUsers = currentState.users.filter(value => value.username !== currentState.personalProfile)
 
   return (
     <Grid
@@ -50,7 +53,7 @@ function Search() {
       >
         <h3>Search results for -Search goes here-</h3>
       </Grid>
-      {listOfUsers && listOfUsers.map(user =>
+      {filteredUsers && filteredUsers.map(user =>
         <Grid item>
           <Grid
             container
@@ -59,12 +62,12 @@ function Search() {
             justifyContent="space-between"
             className={classes.searchResults}
           >
-            <Grid item><Picture userObj={user}/></Grid>
+            <Grid item><Picture userObj={user} /></Grid>
             <Grid item><Add userObj={user} /></Grid>
           </Grid>
         </Grid>
       )}
-      </Grid>
+    </Grid>
   )
 }
 export default Search

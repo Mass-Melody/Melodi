@@ -1,9 +1,7 @@
 import React from 'react'
 import { Grid, makeStyles, Modal, TextField, Button } from '@material-ui/core';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import Add from '../Search/add.js';
-// import Search from '../Search/search.js';
-// import Picture from '../Search/picture.js';
+import { Link } from "react-router-dom";
+import Login from '../../auth/login.js'
 
 // will need to access state to check whether user is logged in -- this will affect whether the login/signup form is rendering, or the user's name with avatar
 
@@ -83,6 +81,11 @@ function Header() {
     e.preventDefault()
     console.log(formData)
     // dispatch(createAccount(formData))
+
+    // Return the created account object
+    // Set state to object
+    // Create new dynamic route with the username
+    // Go to the created profile/route
     handleClose()
   }
 
@@ -151,11 +154,7 @@ function Header() {
           </Link>
         </Grid>
         <Grid item>
-          <form>
-            <input type="text" placeholder="username"></input>
-            <input type="text" placeholder="password"></input>
-            <input type="submit" value="Login"></input>
-          </form>
+          <Login />
           <p onClick={handleOpen} style={{ textDecoration: 'none', paddingLeft: '35px', cursor: 'pointer', color: 'blue' }}>Create an account</p>
         </Grid>
       </Grid>

@@ -1,26 +1,18 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core';
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { Grid, makeStyles } from '@material-ui/core';
-import { navigateProfile } from '../../store/profile.js'
-
+import Message from './Message.js'
 
 const useStyles = makeStyles((theme) => ({
   picture: {
-    width: '100px',
-    height: '100px',
+    width: '50px',
+    height: '50px',
     marginRight: '2rem'
   }
 }))
 
 function Picture(props) {
   const classes = useStyles()
-  const dispatch = useDispatch()
-  const goToProfile = (user) => {
-    dispatch(navigateProfile(user))
-  }
-
   return (
     <Grid
       container
@@ -31,9 +23,7 @@ function Picture(props) {
       <Grid
         item
       >
-        <Link onClick={() => goToProfile(props.friendObj)} to={`/users/account/${props.friendObj.username}`}>
-          <Avatar alt="Remy Sharp" src={props.friendObj.picture} className={classes.picture} />
-        </Link>
+        <Avatar alt="Remy Sharp" src={props.friendObj.picture} className={classes.picture} />
       </Grid>
       <Grid
         item
@@ -42,8 +32,7 @@ function Picture(props) {
         justifyContent="flex-start"
       >
         <p>{props.friendObj.firstName} {props.friendObj.lastName}</p>
-        <p>{props.friendObj.location}</p>
-        <p>{props.friendObj.instrument}</p>
+        <Message />
       </Grid>
     </Grid>
   )

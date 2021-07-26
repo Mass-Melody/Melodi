@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Modal, TextField, Button, Grid } from '@material-ui/core';
+import { Modal, Button, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux'
 import InterestsTextBox from './Interests.js'
 import DetailsTextBox from './Details.js'
 import OtherTextBox from './Other.js'
-import {editProfile} from '../../../../store/profile.js'
+import RenderSnackbar from '../../../snackbar/snackbar.js';
+import SimpleBackdrop from '../../../backdrop/backdrop.js';
+import { editProfile } from '../../../../store/profile.js'
+import { If, Then } from 'react-if'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -26,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
     width: '1000px',
+    height: '800px',
+    overflow: 'auto',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -61,11 +66,14 @@ export default function SimpleModal() {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const profileData = useSelector((state) => state.profile.profile)
-  const [formData, setFormData] = useState(profileData)
-  const [details, setDetails] = useState([])
-  const [interests, setInterests] = useState([])
+  const personalProfile = useSelector((state) => state.profile.personalProfile)
+
+  // THIS IS THE PROBLEM
+  const [formData, setFormData] = useState({})
 
   const handleOpen = () => {
+    console.log('THIS IS FORM DATA', profileData)
+    setFormData(profileData)
     setOpen(true);
   };
 
@@ -73,10 +81,9 @@ export default function SimpleModal() {
     setOpen(false);
   };
 
-  
+
 
   const handleChange = (e) => {
-    console.log(e.target.value)
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
@@ -86,10 +93,8 @@ export default function SimpleModal() {
       name: name,
       info: e.target.value
     }
-
-    console.log(editDetail.id)
-    let updatedDetail = formData.details.filter(value => value.id !== editDetail.id)
-    setFormData({...formData, details: [...updatedDetail, editDetail]})
+    let updatedDetail = formData.details.filter(value => parseInt(value.id) !== editDetail.id)
+    setFormData({ ...formData, details: [...updatedDetail, editDetail] })
   }
 
   const handleChangeInterests = (e, name) => {
@@ -99,28 +104,39 @@ export default function SimpleModal() {
       info: e.target.value
     }
 
-    let updatedInterest = formData.interests.filter(value => value.id !== editInterest.id)
-    setFormData({...formData, interests: [...updatedInterest, editInterest]})
+    let updatedInterest = formData.interests.filter(value => parseInt(value.id) !== editInterest.id)
+    setFormData({ ...formData, interests: [...updatedInterest, editInterest] })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, userData, userProfileName) => {
     e.preventDefault()
-    console.log(formData)
-    dispatch(editProfile(formData))
+    if (userData.playlist) {
+      let regex = /"https.*?"/
+      let url = userData.playlist.match(regex)[0];
+      userData.playlist = url.slice(1, url.length-1)
+    }
+
+    console.log("THIS IS A PLAYLIST STRING", userData.playlist)
+    
+    dispatch(editProfile(userData, userProfileName))
     handleClose()
   }
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Edit Profile</h2>
-      <form onSubmit={(e) => handleSubmit(e)} className={classes.root} noValidate autoComplete="off">
+      <form onSubmit={(e) => handleSubmit(e, formData, personalProfile)} className={classes.root} noValidate autoComplete="off">
         <Grid container
           direction="row"
           alignItems="center"
           justifyContent="center"
         >
           <Grid item>
-            <OtherTextBox handleChange={handleChange} />
+            <RenderSnackbar>
+              <SimpleBackdrop>
+                <OtherTextBox handleChange={handleChange} />
+              </SimpleBackdrop>
+            </RenderSnackbar>
           </Grid>
           <Grid item>
             <InterestsTextBox handleChangeInterests={handleChangeInterests} />
@@ -139,9 +155,13 @@ export default function SimpleModal() {
 
   return (
     <div>
-      <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
-        Edit Profile
+      <If condition={personalProfile === profileData.username}>
+        <Then>
+          <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
+            Edit Profile
       </Button>
+        </Then>
+      </If>
       <Modal
         open={open}
         onClose={handleClose}

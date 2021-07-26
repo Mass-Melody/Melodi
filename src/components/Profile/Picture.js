@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
 import Edit from './ProfileModals/EditModal/EditModal.js'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -39,7 +39,7 @@ function Picture() {
         alignItems="center"
       >
         <Grid className={classes.imageContainer}>
-          <img className={classes.image} src={profile.pictures.full} alt="Profile"/>
+          <img className={classes.image} src={profile.picture} alt="Profile"/>
         </Grid>
         <Grid>
           <p>{profile.age} Years Old</p>
