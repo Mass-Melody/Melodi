@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './cropper.css';
 import Cropper from 'react-easy-crop';
 import Slider from '@material-ui/core/Slider';
@@ -7,9 +7,7 @@ import { SnackbarContext } from '../snackbar/snackbar.js';
 import { generateDownload } from '../../utils/cropImage.js';
 import { IconButton, makeStyles } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Clear';
-
 import getCroppedImg from '../../utils/cropImage.js';
-
 // must convert to file object before posting to AWS S3 bucket
 import dataURLtoFile from '../../utils/dataURLtoFile';
 
@@ -26,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-function RenderCropper({ handleCropper }) {
+function RenderCropper({ handleCropper, handlePicture }) {
 
   const classes = useStyles();
 
@@ -78,15 +76,13 @@ const upload = async () => {
 		try {
 			let formData = new FormData();
 			formData.append('croppedImage', convertedUrlToFile);
-
-			console.log(' get all formData', formData.getAll('croppedImage'));
-
 			// the url below will need to be replaced with the deployed url of the photo upload server
 
-			const photoServer = process.env.REACT_APP_PHOTO_SERVER;
+			const photoServer = 'https://melodi-photo-upload.herokuapp.com/';
 
 			const response = await fetch(`${photoServer}api/users/setProfilePic`, {
 				method: 'POST',
+				mode: 'no-cors',
 				body: formData,
 				type: 'multipart/form-data',
 			});
@@ -95,7 +91,8 @@ const upload = async () => {
 
 				// The variable below is the string you will need to store when updating the user's db record with the profile photo
 				const profilePhotoUrl = resp.data;
-				console.log(profilePhotoUrl);
+				console.log('THIS IS URL', profilePhotoUrl)
+				handlePicture(profilePhotoUrl)
 			});
 
 		} catch (err) {
@@ -145,8 +142,6 @@ const upload = async () => {
 					onChange={onSelectFile}
 					style={{ display: "none" }}
 				/>
-
-				<Button variant='contained' color='primary' style={{marginRight: '10px'}} onClick={() => clear()}>Clear</Button>
 				<Button
 					variant='contained'
 					color='primary'
@@ -154,9 +149,6 @@ const upload = async () => {
 					style={{ marginRight: "10px" }}
 				>
 					Choose
-				</Button>
-				<Button variant='contained' color='secondary' onClick={onDownload} style={{marginRight: '10px'}}>
-					Download
 				</Button>
 				<Button variant='contained' color='primary' onClick={upload} style={{marginRight: '10px'}}>Upload</Button>
 			</div>

@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RenderAvatar() {
+function RenderAvatar(props) {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -121,7 +121,7 @@ function RenderAvatar() {
         </Popper>
       </div>
 
-      {showCropper && <RenderCropper handleCropper={handleCropper}/>}
+      {showCropper && <RenderCropper handlePicture={props.handlePicture} handleCropper={handleCropper}/>}
     </>
   )
 }

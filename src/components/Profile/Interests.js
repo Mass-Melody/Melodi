@@ -4,24 +4,41 @@ import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    border: '2px black solid',
+
     width: '100%',
     height: '360px',
     marginBottom: '1rem',
     padding: '1rem',
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
-    boxShadow: '0 1px 2px var(--shadow-2)'
+    boxShadow: '0px 2px 15px rgba(0,0,0,0.18)'
   },
   interestTitle: {
-    marginRight: '1rem',
+    marginRight: '.5rem',
     width: '20%',
     background: '#0f8fff',
     color: 'white',
-    padding: '3px'
+    padding: '2px',
+    fontSize:'1rem',
+    fontFamily: 'sans-serif',
+    borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
+  },
+  interestContainer: {
+    marginBottom: '.5rem'
   },
   interestInfo: {
     background: '#94ddff',
-    width: '70%'
+    color: 'white',
+    width: '70%',
+    fontSize:'1rem',
+    fontFamily: 'sans-serif',
+    textDecoration: 'none',
+    padding: '0.1rem',
+    borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
+  },
+  title: {
+    fontSize: '1.3rem',
+    fontFamily: 'sans-serif',
+    fontWeight: 700
   }
 }))
 
@@ -35,9 +52,10 @@ function Interests() {
       container
       className={classes.container}
     >
-      <h4>Interests</h4>
+      <h4 className={classes.title}>Interests</h4>
       {interests && interests.map(interest =>
         <Grid
+        className={classes.interestContainer}
           container>
           <p className={classes.interestTitle}>
             {interest.name}

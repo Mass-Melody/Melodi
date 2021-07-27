@@ -10,7 +10,7 @@ function TextboxOther(props) {
   return (
     <div>
 
-      <RenderAvatar />
+      <RenderAvatar handleChange={props.handleChange}/>
       <TextField
         required
         id="outlined-required"
@@ -57,6 +57,15 @@ function TextboxOther(props) {
         variant="outlined"
         name="age"
         defaultValue={info.age}
+        onChange={(e) => props.handleChange(e)}
+      />
+      <TextField
+        required
+        id="outlined-required"
+        label="Location"
+        variant="outlined"
+        name="location"
+        defaultValue={info.location}
         onChange={(e) => props.handleChange(e)}
       />
       <TextField
