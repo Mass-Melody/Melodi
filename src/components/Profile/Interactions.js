@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import { Grid, makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -14,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Interactions() {
   const classes = useStyles()
- 
+  const username = useSelector((state) => state.profile.profile.username)
+
   return (
     <Grid
       container
@@ -28,7 +31,9 @@ function Interactions() {
         alignItems="center"
       >
         <Grid item>
-          <a href="/friends">Friends</a>
+          <Link to={`/friends/${username}`}>
+            Friends
+          </Link>
         </Grid>
         <Grid item>
           <a href="/">Follow</a>

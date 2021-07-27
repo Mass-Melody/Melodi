@@ -4,6 +4,7 @@ import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePost } from '../../store/profile.js'
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     border: '2px black solid',
