@@ -14,9 +14,9 @@ import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    border: '2px black solid',
     width: '940px',
-    margin: 'auto'
+    margin: 'auto',
+    marginTop: '1rem'
   },
   left: {
     width: '360px'

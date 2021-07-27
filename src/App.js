@@ -1,66 +1,19 @@
 import React from 'react';
-<<<<<<< HEAD
-import Profile from './components/Profile/Profile.js'
-import Home from './components/Home/Home.js'
-import Modal from './components/CreateAccModal/Modal.js'
-import Search from './components/Search/Search.js'
-import Friends from './components/Friends/Friends.js'
 import store from './store'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-=======
->>>>>>> origin/dev
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router} from "react-router-dom";
-import store from './store'
 import LoginContext from './auth/context.js'
 import Melodi from './components/Melodi.js'
+import './App.css'
+
 
 function App() {
-  // Create use effect to database containing all users info
-  // Create a store that will store this array of usernames
-  // Use the store to create dynamic routes for each of the usernames
-  // Clicking on profile, will bring you to the dynamic route based on your username
-  // useEffect(() => {
-  //   dispatch(setProfile(cookie.auth.username))
-  // }, [])
-
   return (
     <Router>
       <LoginContext>
         <Provider store={store}>
-<<<<<<< HEAD
-          <div styles={{ margin: 'auto', background: '#e0e0e0', position: 'relative'}} className="App">
-            <Header />
-            <Route exact path="/">
-              
-              <Link to='/profile'>
-                <p>Profile Page</p>
-              </Link>
-              <Link to='/search'>
-                <p>Search Page</p>
-              </Link>
-              <Link to='/friends'>
-                <p>Friends Page</p>
-              </Link>
-              <p>Toggle Modal</p>
-              <Modal />
-              <Home />
-            </Route>
-            
-            <Route exact path="/profile">
-              <Profile />
-            </Route>
-            <Route exact path="/search">
-              <Search />
-            </Route>
-            <Route exact path="/friends">
-              <Friends />
-            </Route>
-            <Footer />
-=======
           <div styles={{ margin: 'auto', background: '#e0e0e0', position: 'relative' }} className="App">
             <Melodi />
->>>>>>> origin/dev
           </div>
         </Provider>
       </LoginContext>

@@ -50,7 +50,11 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiButton-label': {
       display: 'block'
     },
-    display: 'block'
+    display: 'block',
+    fontSize: '1.3rem',
+    fontFamily: 'sans-serif',
+    position: 'absolute',
+    right: '1rem',
   },
   textField: {
     width: '15rem'
