@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, TextField, Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { newPost } from '../../../store/profile.js'
+import { If, Then } from 'react-if'
 
 
 function rand() {
@@ -46,8 +47,10 @@ const useStyles = makeStyles((theme) => ({
     right: 15
   },
   button: {
-    display: 'block',
-    margin: 'auto'
+    '& .MuiButton-label': {
+      display: 'block'
+    },
+    display: 'block'
   },
   textField: {
     width: '15rem'
@@ -61,6 +64,7 @@ export default function SimpleModal() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const profileData = useSelector((state) => state.profile)
 
   const handleChange = (e) => {
     if (e.target.name === 'title') {
@@ -114,7 +118,7 @@ export default function SimpleModal() {
         <Button type="submit" variant="contained" color="primary">
           POST
       </Button>
-      </form> 
+      </form>
       <button className={classes.close} type="button" onClick={handleClose}>
         X
        </button>
@@ -123,9 +127,13 @@ export default function SimpleModal() {
 
   return (
     <div>
-      <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
-        New Post
+      <If condition={profileData.personalProfile === profileData.profile.username}>
+        <Then>
+          <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
+            New Post
       </Button>
+        </Then>
+      </If>
       <Modal
         open={open}
         onClose={handleClose}

@@ -1,6 +1,10 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core';
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Grid, makeStyles } from '@material-ui/core';
+import { navigateProfile } from '../../store/profile.js'
+
 
 const useStyles = makeStyles((theme) => ({
   picture: {
@@ -12,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Picture(props) {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const goToProfile = (user) => {
+    dispatch(navigateProfile(user))
+  }
+
   return (
     <Grid
       container
@@ -22,7 +31,9 @@ function Picture(props) {
       <Grid
         item
       >
-        <Avatar alt="Remy Sharp" src={props.friendObj.pictures.lg} className={classes.picture} />
+        <Link onClick={() => goToProfile(props.friendObj)} to={`/users/account/${props.friendObj.username}`}>
+          <Avatar alt="Remy Sharp" src={props.friendObj.picture} className={classes.picture} />
+        </Link>
       </Grid>
       <Grid
         item

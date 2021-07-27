@@ -4,6 +4,7 @@ import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePost } from '../../store/profile.js'
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     border: '2px black solid',
@@ -36,8 +37,8 @@ function Aboutme() {
     >
       <Grid
         container
-        direction="column"
-        alignItems="center"
+        direction="row"
+        alignItems="flex-start"
         justifyContent="space-between"
         style={{ position: 'relative' }}
       >

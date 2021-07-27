@@ -1,5 +1,8 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import { Grid, makeStyles } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux'
+// import { populateFriends } from '../../store/profile.js'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -14,7 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Interactions() {
   const classes = useStyles()
- 
+  const username = useSelector((state) => state.profile.profile.username)
+  const dispatch = useDispatch()
+  // const uploadFriends = (friendsList) => {
+  //   dispatch(populateFriends)
+  // }
+
+
   return (
     <Grid
       container
@@ -28,7 +37,9 @@ function Interactions() {
         alignItems="center"
       >
         <Grid item>
-          <a href="/friends">Friends</a>
+          <Link to={`/friends/${username}`}>
+            Friends
+          </Link>
         </Grid>
         <Grid item>
           <a href="/">Follow</a>

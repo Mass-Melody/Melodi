@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import Profile from './components/Profile/Profile.js'
 import Home from './components/Home/Home.js'
 import Modal from './components/CreateAccModal/Modal.js'
@@ -6,21 +7,28 @@ import Search from './components/Search/Search.js'
 import Friends from './components/Friends/Friends.js'
 import store from './store'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+=======
+>>>>>>> origin/dev
 import { Provider } from 'react-redux'
-import Header from './components/Header/header.js';
-import Footer from './components/Footer/footer.js';
+import { BrowserRouter as Router} from "react-router-dom";
+import store from './store'
 import LoginContext from './auth/context.js'
+import Melodi from './components/Melodi.js'
 
 function App() {
   // Create use effect to database containing all users info
   // Create a store that will store this array of usernames
   // Use the store to create dynamic routes for each of the usernames
   // Clicking on profile, will bring you to the dynamic route based on your username
-  
+  // useEffect(() => {
+  //   dispatch(setProfile(cookie.auth.username))
+  // }, [])
+
   return (
     <Router>
       <LoginContext>
         <Provider store={store}>
+<<<<<<< HEAD
           <div styles={{ margin: 'auto', background: '#e0e0e0', position: 'relative'}} className="App">
             <Header />
             <Route exact path="/">
@@ -49,6 +57,10 @@ function App() {
               <Friends />
             </Route>
             <Footer />
+=======
+          <div styles={{ margin: 'auto', background: '#e0e0e0', position: 'relative' }} className="App">
+            <Melodi />
+>>>>>>> origin/dev
           </div>
         </Provider>
       </LoginContext>

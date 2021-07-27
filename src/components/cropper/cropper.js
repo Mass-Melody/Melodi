@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './cropper.css';
-
 import Cropper from 'react-easy-crop';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
@@ -8,9 +7,7 @@ import { SnackbarContext } from '../snackbar/snackbar.js';
 import { generateDownload } from '../../utils/cropImage.js';
 import { IconButton, makeStyles } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Clear';
-
 import getCroppedImg from '../../utils/cropImage.js';
-
 // must convert to file object before posting to AWS S3 bucket
 import dataURLtoFile from '../../utils/dataURLtoFile';
 
@@ -27,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-function RenderCropper({ handleCropper }) {
+function RenderCropper({ handleCropper, handlePicture }) {
 
   const classes = useStyles();
 
@@ -66,17 +63,43 @@ function RenderCropper({ handleCropper }) {
     setImage(null);
   }
 
-	const upload = async () => {
-		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning') }
+	
+const upload = async () => {
+		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning'); }
 
 		const canvas = await getCroppedImg(image, croppedArea);
 		console.log('cropped image', canvas);
 		const canvasDataUrl = canvas.toDataURL('image/jpeg');
-		// console.log('canvas data url', canvasDataUrl);
 
 		const convertedUrlToFile = dataURLtoFile(canvasDataUrl, 'cropped-image.jpeg');
-		console.log('file object', convertedUrlToFile);
-	}
+
+		try {
+			let formData = new FormData();
+			formData.append('croppedImage', convertedUrlToFile);
+			// the url below will need to be replaced with the deployed url of the photo upload server
+
+			const photoServer = 'https://melodi-photo-upload.herokuapp.com/';
+
+			const response = await fetch(`${photoServer}api/users/setProfilePic`, {
+				method: 'POST',
+				mode: 'no-cors',
+				body: formData,
+				type: 'multipart/form-data',
+			});
+
+			response.json().then(resp => {
+
+				// The variable below is the string you will need to store when updating the user's db record with the profile photo
+				const profilePhotoUrl = resp.data;
+				console.log('THIS IS URL', profilePhotoUrl)
+				handlePicture(profilePhotoUrl)
+			});
+
+		} catch (err) {
+			console.error('====== ERROR FETCHING DATA FROM PHOTO UPLOAD SERVER ======:', err.message);
+		}
+
+	};
 
   return (
     <div className='container'>
@@ -119,8 +142,6 @@ function RenderCropper({ handleCropper }) {
 					onChange={onSelectFile}
 					style={{ display: "none" }}
 				/>
-
-				<Button variant='contained' color='primary' style={{marginRight: '10px'}} onClick={() => clear()}>Clear</Button>
 				<Button
 					variant='contained'
 					color='primary'
@@ -128,9 +149,6 @@ function RenderCropper({ handleCropper }) {
 					style={{ marginRight: "10px" }}
 				>
 					Choose
-				</Button>
-				<Button variant='contained' color='secondary' onClick={onDownload} style={{marginRight: '10px'}}>
-					Download
 				</Button>
 				<Button variant='contained' color='primary' onClick={upload} style={{marginRight: '10px'}}>Upload</Button>
 			</div>
