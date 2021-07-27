@@ -3,6 +3,7 @@ import PostModal from './ProfileModals/PostModal.js'
 import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePost } from '../../store/profile.js'
+import { If, Then } from 'react-if'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
 function Aboutme() {
   const classes = useStyles()
   const posts = useSelector((state) => state.profile.profile.posts)
+  const profileData = useSelector((state) => state.profile.profile)
+  const personalProfile = useSelector((state) => state.profile.personalProfile)
   const dispatch = useDispatch()
   const handleDelete = (id) => {
     dispatch(deletePost(id))
@@ -71,20 +74,24 @@ function Aboutme() {
         alignItems="flex-start"
         justifyContent="space-between"
         style={{ position: 'relative' }}
-      >  
+      >
       </Grid>
       {posts && posts.map(post =>
-      <>
-        <Grid
-          container
-          direction="column"
-          alignItems="flex-start"
-          style={{ position: 'relative', borderBottom: '1px' }}
-        >
-          <h4 className={classes.postTitle}>{post.title}</h4>
-          <p className={classes.postContent}>{post.content}</p>
-          <span className={classes.delete} style={{ position: 'absolute', right: 5}} onClick={() => handleDelete(post.id)}>X</span>
-        </Grid>
+        <>
+          <Grid
+            container
+            direction="column"
+            alignItems="flex-start"
+            style={{ position: 'relative', borderBottom: '1px' }}
+          >
+            <h4 className={classes.postTitle}>{post.title}</h4>
+            <p className={classes.postContent}>{post.content}</p>
+            <If condition={personalProfile === profileData.username}>
+              <Then>
+                <span className={classes.delete} style={{ position: 'absolute', right: 5 }} onClick={() => handleDelete(post.id)}>X</span>
+              </Then>
+            </If>
+          </Grid>
         </>
       )
       }

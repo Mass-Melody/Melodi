@@ -26,6 +26,8 @@ function Playlist() {
   return (
     <Grid
       container
+      direction="column"
+
       className={classes.container}
     >
       <h4 className={classes.title}>Playlist</h4>

@@ -1,7 +1,8 @@
 import axios from 'axios'
-
+// Update personalProfile picture upsen setting and loggin in
 const initialState = {
   personalProfile: null,
+  personalProfilePicture: '',
   currentlyVisiting: null,
   users: [],
   profile: {
@@ -32,10 +33,8 @@ export default function reducer(state = initialState, action) {
       console.log('SET PROFILE', payload)
       return { ...state, profile: payload }
     case 'setProfile':
-      console.log("STATE: ", payload)
       return { ...state, personalProfile: payload.username, profile: payload }
     case 'navigateProfile':
-      console.log("STATE: ", payload)
       return { ...state, profile: payload }
     case 'newPost':
       let id = state.profile.posts.length + 11
@@ -53,7 +52,6 @@ export default function reducer(state = initialState, action) {
     case 'getAllUsers':
       return { ...state, users: payload }
     case 'yourProfile':
-      console.log('THIS IS IN REDUCER YOUR PROFILE', payload)
       return { ...state, personalProfile: payload.username, profile: payload }
     default:
       return state
@@ -156,12 +154,30 @@ export const removeFriend = (username) => {
   }
 }
 
-export const addFriend = (user) => {
-  
-  return {
-    type: 'addFriend',
-    payload: user
+export const addFriend = (info, userProfileName) => async dispatch => {
+  let stringifiedProfile = {
+    ...info,
+    interests: JSON.stringify(info.interests),
+    details: JSON.stringify(info.details),
+    posts: JSON.stringify(info.posts)
   }
+  // Turn back into Json and display
+  let { url, profile } = {
+    url: `${process.env.REACT_APP_API}/api/v1/allUsers/${userProfileName}`,
+    profile: stringifiedProfile
+  }
+  // AXIOS CALL
+  await axios.put(url, profile)
+    .then(response => {
+      console.log("RESPONSE DATA DID IT WORK???", response.data)
+    }).catch(e => {
+      console.log(e)
+    })
+  // Stringify Details and Interest
+  dispatch({
+    type: 'addFriend',
+    payload: info
+  })
 }
 
 export const navigateProfile = (profileInfo) => async dispatch => {
@@ -180,7 +196,6 @@ export const navigateProfile = (profileInfo) => async dispatch => {
 
 export const yourProfile = (user) => async dispatch => {
   let userProfile = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${user}`)
-  console.log('THIS IS USER PROFILE',userProfile)
   let parseInterests = JSON.parse(userProfile.data.interests);
   let parseDetails = JSON.parse(userProfile.data.details);
   let parsePosts = JSON.parse(userProfile.data.posts)
@@ -194,7 +209,6 @@ export const yourProfile = (user) => async dispatch => {
 }
 
 export const getAllUsers = () => async dispatch => {
-  console.log("THIS IS IN THE ACTION CREATOR")
   let allUsers = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/`)
   let parsedUsers = allUsers.data.map(profile => {
     let parseInterests = JSON.parse(profile.interests);

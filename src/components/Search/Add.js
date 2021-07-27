@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { makeStyles } from '@material-ui/core';
@@ -23,9 +23,14 @@ function Add(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const isFriend = useSelector((state) => state.profile.profile.friends)
+  const profileData = useSelector((state) => state.profile.profile)
+  const personalProfile = useSelector((state) => state.profile.personalProfile)
+  const [formData, setFormData] = useState({profileData})
+
 
   const addNewFriend = (user) => {
-    dispatch(addFriend(user))
+    setFormData({...formData, friends: [...profileData.friends, user]})
+    dispatch(addFriend(formData, personalProfile))
   }
 
   const removePerson = (person) => {
