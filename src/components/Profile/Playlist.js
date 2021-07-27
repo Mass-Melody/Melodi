@@ -4,16 +4,18 @@ import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    border: '2px black solid',
     width: '100%',
     height: '500px',
     marginBottom: '1rem',
     padding: '1rem',
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
-    boxShadow: '0 1px 2px var(--shadow-2)'
+    boxShadow: '0px 2px 15px rgba(0,0,0,0.18)'
   },
-  picture: {
-    marginRight: '1.5rem'
+  title: {
+    marginBottom: '2rem',
+    fontSize: '1.3rem',
+    fontFamily: 'sans-serif',
+    fontWeight: 700
   }
 }))
 
@@ -26,7 +28,7 @@ function Playlist() {
       container
       className={classes.container}
     >
-      <h4>Playlist</h4>
+      <h4 className={classes.title}>Playlist</h4>
       {playlist ?
         <iframe src={playlist} width="100%" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         :

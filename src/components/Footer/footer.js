@@ -6,12 +6,12 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    border: '2px black solid',
+    background: 'black',
     width: '100%',
     minHeight: '200px',
-    marginBottom: '1rem',
     padding: '1rem',
-    dispaly: 'inline'
+    dispaly: 'inline',
+    marginTop: '3rem'
   },
   picture: {
     marginRight: '1.5rem'
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '200px',
     marginTop: '50px',
     lineHeight: '30px',
+    color: 'white'
   }
 }));
 
@@ -41,13 +42,13 @@ function Footer() {
       alignItems="center"
     >
       <Grid item className={classes.item}>
-        <HomeIcon fontSize="large" />
+        <HomeIcon style={{color: 'white', cursor: 'pointer'}} fontSize="large" />
       </Grid>
       <Grid item className={classes.item}>
-      <GroupIcon fontSize="large" />
+      <GroupIcon style={{color: 'white', cursor: 'pointer'}} fontSize="large" />
       </Grid>
       <Grid item className={classes.item}>
-        <GitHubIcon fontSize="large"/>
+        <GitHubIcon style={{color: 'white', cursor: 'pointer'}} fontSize="large"/>
       </Grid>
       <Grid item className={classes.copyright}>
         &copy; {date} Mass-Melody
