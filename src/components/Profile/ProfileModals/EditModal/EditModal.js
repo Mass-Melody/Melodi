@@ -112,6 +112,7 @@ export default function SimpleModal() {
     e.preventDefault()
     if (userData.playlist) {
       let regex = /"https.*?"/
+      console.log('THis is the playlist: ', userData.playlist);
       let url = userData.playlist.match(regex)[0];
       userData.playlist = url.slice(1, url.length-1)
     }
