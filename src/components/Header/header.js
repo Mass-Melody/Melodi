@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Grid, makeStyles, Modal, TextField, Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import Login from '../../auth/login.js'
+import { createProfile, setProfile } from '../../store/profile.js';
+
 
 // will need to access state to check whether user is logged in -- this will affect whether the login/signup form is rendering, or the user's name with avatar
 
@@ -62,7 +65,8 @@ function Header() {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState({})
-
+  const dispatch = useDispatch();
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -78,15 +82,16 @@ function Header() {
 
   const handleSubmit = (e) => {
     console.log("hello can you see me")
-    e.preventDefault()
-    console.log(formData)
-    // dispatch(createAccount(formData))
+    e.preventDefault();
+    console.log(formData);
+    dispatch(createProfile(formData));
+    //dispatch(setProfile(formData));
 
     // Return the created account object
     // Set state to object
     // Create new dynamic route with the username
     // Go to the created profile/route
-    handleClose()
+    handleClose();
   }
 
   const body = (

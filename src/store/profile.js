@@ -26,6 +26,8 @@ export default function reducer(state = initialState, action) {
   const { type, payload } = action
 
   switch (type) {
+    case 'createProfile':
+      return { ...state, profile: payload }
     case 'editProfile':
       console.log('SET PROFILE', payload)
       return { ...state, profile: payload }
@@ -51,10 +53,36 @@ export default function reducer(state = initialState, action) {
     case 'getAllUsers':
       return { ...state, users: payload }
     case 'yourProfile':
-      return { ...state, profile: payload }
+      console.log('THIS IS IN REDUCER YOUR PROFILE', payload)
+      return { ...state, personalProfile: payload.username, profile: payload }
     default:
       return state
   }
+}
+
+export const createProfile = (profileInfo) => async dispatch => {
+  console.log('Profile Info: ', profileInfo);
+  await axios.post(`${process.env.REACT_APP_API}/signup`, profileInfo)
+
+  let test = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_API}/api/v1/allUsers`
+    ,
+    data: {
+      username: profileInfo.username,
+    },
+  })
+    .then(res => {
+      console.log("res", res.data.message);
+    })
+    .catch(err => {
+      console.log("error in request", err);
+    });
+  console.log('What was stored: ', test);
+  // dispatch({
+  //   type: 'createProfile',
+  //   payload: userProfile.data
+  // })
 }
 
 export const setProfile = (profileInfo) => async dispatch => {
@@ -80,8 +108,6 @@ export const editProfile = (info, userProfileName) => async dispatch => {
     details: JSON.stringify(info.details),
     posts: JSON.stringify(info.posts)
   }
-  console.log('USER PROFILE NAME', userProfileName)
-  console.log('Stringified PROFILE', stringifiedProfile)
   // Turn back into Json and display
   let { url, profile } = {
     url: `${process.env.REACT_APP_API}/api/v1/allUsers/${userProfileName}`,
@@ -100,6 +126,14 @@ export const editProfile = (info, userProfileName) => async dispatch => {
     payload: info
   })
 }
+
+// export const populateFriends = () => async dispatch =>{
+
+//   return {
+//     type: 'populateFriends',
+//     payload: post
+//   }
+// }
 
 export const newPost = (post) => {
   return {
@@ -129,26 +163,38 @@ export const addFriend = (user) => {
   }
 }
 
-export const navigateProfile = (user) => {
-  return {
+export const navigateProfile = (profileInfo) => async dispatch => {
+  let userProfile = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${profileInfo.username}`)
+  let parseInterests = JSON.parse(userProfile.data.interests);
+  let parseDetails = JSON.parse(userProfile.data.details);
+  let parsePosts = JSON.parse(userProfile.data.posts)
+  userProfile.data.interests = parseInterests;
+  userProfile.data.details = parseDetails;
+  userProfile.data.posts = parsePosts;
+  dispatch({
     type: 'navigateProfile',
-    payload: user
-  }
+    payload: userProfile.data
+  })
 }
 
-export const yourProfile = (user, listOfUsers) => {
-  let personal = listOfUsers.users.filter(profile => user === profile.username)[0]
-  console.log(personal)
-  return {
+export const yourProfile = (user) => async dispatch => {
+  let userProfile = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${user}`)
+  console.log('THIS IS USER PROFILE',userProfile)
+  let parseInterests = JSON.parse(userProfile.data.interests);
+  let parseDetails = JSON.parse(userProfile.data.details);
+  let parsePosts = JSON.parse(userProfile.data.posts)
+  userProfile.data.interests = parseInterests;
+  userProfile.data.details = parseDetails;
+  userProfile.data.posts = parsePosts;
+  dispatch({
     type: 'yourProfile',
-    payload: personal
-  }
+    payload: userProfile.data
+  })
 }
 
 export const getAllUsers = () => async dispatch => {
   console.log("THIS IS IN THE ACTION CREATOR")
   let allUsers = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/`)
-  console.log('THIS IS ALL USERS')
   let parsedUsers = allUsers.data.map(profile => {
     let parseInterests = JSON.parse(profile.interests);
     let parseDetails = JSON.parse(profile.details);

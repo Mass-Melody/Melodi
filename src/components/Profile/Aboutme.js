@@ -25,6 +25,8 @@ function Aboutme() {
   return (
     <Grid
       container
+      direction="column"
+      align="flex-start"
       className={classes.container}
     >
       <h4>About Me</h4>

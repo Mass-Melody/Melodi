@@ -87,6 +87,10 @@ export default function SimpleModal() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const handlePicture = (e, imageUrl) => {
+    setFormData({ ...formData, picture: imageUrl })
+  }
+
   const handleChangeDetails = (e, name) => {
     let editDetail = {
       id: parseInt(e.target.name),
@@ -110,10 +114,13 @@ export default function SimpleModal() {
 
   const handleSubmit = (e, userData, userProfileName) => {
     e.preventDefault()
-    if (userData.playlist) {
-      let regex = /"https.*?"/
+    let regex = /"https.*?"/
+    if (regex.test(userData.playlist)) {
+      console.log('THis is the playlist: ', userData.playlist);
       let url = userData.playlist.match(regex)[0];
       userData.playlist = url.slice(1, url.length-1)
+    } else {
+      userData.playlist = profileData.playlist
     }
 
     console.log("THIS IS A PLAYLIST STRING", userData.playlist)
@@ -134,7 +141,7 @@ export default function SimpleModal() {
           <Grid item>
             <RenderSnackbar>
               <SimpleBackdrop>
-                <OtherTextBox handleChange={handleChange} />
+                <OtherTextBox handlePicture={handlePicture} handleChange={handleChange} />
               </SimpleBackdrop>
             </RenderSnackbar>
           </Grid>

@@ -8,16 +8,22 @@ import Search from './Search/Search.js'
 import Friends from './Friends/Friends.js'
 import Header from './Header/header.js';
 import Footer from './Footer/footer.js';
-import { getAllUsers } from '../store/profile.js'
+import { getAllUsers, yourProfile } from '../store/profile.js'
+import cookie from 'react-cookies';
 
 
 function Melodi() {
-  const currentUser = useSelector((state) => state.profile.personalProfile)
+  // const currentUser = useSelector((state) => state.profile.personalProfile)
   const dispatch = useDispatch()
 
 
   useEffect(() => {
     dispatch(getAllUsers())
+    const username = cookie.load('username') || null;
+    //admin
+    if(username){
+      dispatch(yourProfile(username))
+    }
   }, [])
 
 
