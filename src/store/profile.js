@@ -157,6 +157,7 @@ export const removeFriend = (username) => {
 }
 
 export const addFriend = (user) => {
+  
   return {
     type: 'addFriend',
     payload: user

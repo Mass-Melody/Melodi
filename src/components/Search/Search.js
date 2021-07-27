@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 const useStyles = makeStyles((theme) => ({
   container: {
     background: '#e0e0e0',
-    height: "100vh"
+    overflow: 'auto'
   },
   searchResults: {
     width: '680px',
@@ -17,6 +17,17 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '6px',
     padding: '1rem',
     margin: '0px auto'
+  },
+  searchResults: {
+    width: '680px',
+    background: 'white',
+    boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+    borderRadius: '6px',
+    padding: '1rem',
+    margin: '0px auto'
+  },
+  searchContainer: {
+    marginBottom: '3ren'
   },
   searchHeader: {
     width: '680px',
@@ -37,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
 function Search() {
   const classes = useStyles()
   const currentState = useSelector((state) => state.profile)
-  const filteredUsers = currentState.users.filter(value => value.username !== currentState.personalProfile)
+  const filteredUsers = currentState.users.filter(value => value.username !== currentState.personalProfile && currentState.profile.location === value.location)
+  const allUsers = currentState.users.filter(value => value.username !== currentState.personalProfile)
 
   return (
     <Grid
@@ -51,7 +63,13 @@ function Search() {
         item
         className={classes.searchHeader}
       >
-        <h3>Search results for -Search goes here-</h3>
+        <h3>Search results</h3>
+      </Grid>
+      <Grid
+        item
+        className={classes.searchHeader}
+      >
+        <h3>People Near You!</h3>
       </Grid>
       {filteredUsers && filteredUsers.map(user =>
         <Grid item>
@@ -67,6 +85,27 @@ function Search() {
           </Grid>
         </Grid>
       )}
+      <Grid
+        item
+        className={classes.searchHeader}
+      >
+        <h3>All Users</h3>
+      </Grid>
+      {allUsers && allUsers.map(user =>
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            align-items="center"
+            justifyContent="space-between"
+            className={classes.searchResults}
+          >
+            <Grid item><Picture userObj={user} /></Grid>
+            <Grid item><Add userObj={user} /></Grid>
+          </Grid>
+        </Grid>
+      )}
+
     </Grid>
   )
 }
