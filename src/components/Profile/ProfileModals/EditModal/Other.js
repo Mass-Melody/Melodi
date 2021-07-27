@@ -60,6 +60,15 @@ function TextboxOther(props) {
         onChange={(e) => props.handleChange(e)}
       />
       <TextField
+        required
+        id="outlined-required"
+        label="Location"
+        variant="outlined"
+        name="location"
+        defaultValue={info.location}
+        onChange={(e) => props.handleChange(e)}
+      />
+      <TextField
         id="outlined-multiline-static"
         label="About Me"
         multiline
