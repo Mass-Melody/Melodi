@@ -47,8 +47,10 @@ const useStyles = makeStyles((theme) => ({
     right: 15
   },
   button: {
-    display: 'block',
-    margin: 'auto'
+    '& .MuiButton-label': {
+      display: 'block'
+    },
+    display: 'block'
   },
   textField: {
     width: '15rem'

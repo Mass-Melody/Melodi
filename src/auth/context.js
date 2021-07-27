@@ -12,12 +12,18 @@ function LoginProvider(props) {
   // Saves User Record
   const [user, setUser] = useState({});
 
-  const validateToken = (token) => {
+  const validateToken = (token, user) => {
     try {
       const tokenUser = jwt.verify(token, process.env.REACT_APP_SECRET)
       setIsLoggedIn(true)
       setUser(tokenUser);
-      cookie.save('auth', token)
+      if (!cookie.load('auth')) {
+        cookie.save('auth', token)
+      }
+      if (!cookie.load('username')) {
+        cookie.save('username', user)
+      }
+      console.log('THIS IS IN CONTEXt', user)
     } catch (e) {
       setUser({})
       setIsLoggedIn(false);
@@ -29,6 +35,7 @@ function LoginProvider(props) {
     setUser({})
     setIsLoggedIn(false);
     cookie.remove('auth')
+    cookie.remove('username')
   }
 
   const can = (permission) => {
@@ -46,7 +53,7 @@ function LoginProvider(props) {
         .auth(input.username, input.password);
 
       const { token } = response.body;
-      validateToken(token)
+      validateToken(token, input.username)
     } catch (e) {
       console.warn('Login Attempt Failed')
     }
