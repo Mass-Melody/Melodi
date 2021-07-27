@@ -1,13 +1,17 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import GroupIcon from '@material-ui/icons/Group';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     border: '2px black solid',
-    width: '100vw',
+    width: '100%',
     minHeight: '200px',
     marginBottom: '1rem',
-    padding: '1rem'
+    padding: '1rem',
+    dispaly: 'inline'
   },
   picture: {
     marginRight: '1.5rem'
@@ -29,24 +33,21 @@ function Footer() {
   const classes = useStyles();
   const date = new Date().getFullYear();
 
-  return(
+  return (
     <Grid
-      container direction="column"
+      container direction="row"
       className={classes.container}
 
       alignItems="center"
     >
       <Grid item className={classes.item}>
-        HOME
+        <HomeIcon fontSize="large" />
       </Grid>
       <Grid item className={classes.item}>
-        ABOUT US
+      <GroupIcon fontSize="large" />
       </Grid>
       <Grid item className={classes.item}>
-        TECHNICAL REQUIREMENTS
-      </Grid>
-      <Grid item className={classes.item}>
-        GITHUB
+        <GitHubIcon fontSize="large"/>
       </Grid>
       <Grid item className={classes.copyright}>
         &copy; {date} Mass-Melody
