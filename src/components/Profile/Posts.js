@@ -37,8 +37,8 @@ function Aboutme() {
     >
       <Grid
         container
-        direction="column"
-        alignItems="center"
+        direction="row"
+        alignItems="flex-start"
         justifyContent="space-between"
         style={{ position: 'relative' }}
       >
