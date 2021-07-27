@@ -18,14 +18,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '1rem',
     margin: '0px auto'
   },
-  searchResults: {
-    width: '680px',
-    background: 'white',
-    boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-    borderRadius: '6px',
-    padding: '1rem',
-    margin: '0px auto'
-  },
   searchContainer: {
     marginBottom: '3ren'
   },

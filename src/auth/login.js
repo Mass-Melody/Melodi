@@ -67,7 +67,7 @@ function Login() {
   }
 
   async function handleSubmit(e) {
-    if(!user.username || !user.password){
+    if (!user.username || !user.password) {
       alert('Please fill out the form completely!')
     } else {
       e.preventDefault();
@@ -95,7 +95,7 @@ function Login() {
         <Then>
           <Link onClick={() => homePage()} to={`/users/account/${cookie.load('username')}`}>
             {currentUser.picture ?
-              <img src={currentUser.picture} alt="user profile" />
+              <img style={{width: 50, height: 50, marginRight: '1rem', borderRadius: '50%'}}src={currentUser.picture} alt="user profile" />
               :
               <p className={classes.button}>Home</p>
             }
@@ -110,7 +110,7 @@ function Login() {
           <form onSubmit={handleSubmit}>
             <input className={classes.input} placeholder="username" name="username" onChange={handleChange} />
             <input className={classes.input} name="password" type="password" onChange={handleChange} />
-            <Button className={classes.login}type="submit" variant="outline-light primary">Login</Button>
+            <Button className={classes.login} type="submit" variant="outline-light primary">Login</Button>
           </form>
         </Else>
       </If >

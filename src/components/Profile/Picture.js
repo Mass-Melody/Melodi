@@ -3,6 +3,21 @@ import { Grid, makeStyles } from '@material-ui/core';
 import Edit from './ProfileModals/EditModal/EditModal.js'
 import { useSelector } from 'react-redux';
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
@@ -16,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '1.5rem'
   },
   image: {
-    width: '100px',
-    height: '100px',
+    width: '150px',
+    height: '150px',
     marginBottom: '1rem'
   },
   font: {

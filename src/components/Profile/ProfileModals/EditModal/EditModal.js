@@ -68,7 +68,6 @@ export default function SimpleModal() {
   const profileData = useSelector((state) => state.profile.profile)
   const personalProfile = useSelector((state) => state.profile.personalProfile)
 
-  // THIS IS THE PROBLEM
   const [formData, setFormData] = useState({})
 
   const handleOpen = () => {

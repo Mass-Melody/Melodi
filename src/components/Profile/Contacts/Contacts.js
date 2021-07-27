@@ -1,5 +1,4 @@
 import React from 'react'
-// import Message from './Message.js'
 // import Window from './Window.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles, Divider } from '@material-ui/core';
