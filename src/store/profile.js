@@ -26,6 +26,8 @@ export default function reducer(state = initialState, action) {
   const { type, payload } = action
 
   switch (type) {
+    case 'createProfile':
+      return { ...state, profile: payload }
     case 'editProfile':
       console.log('SET PROFILE', payload)
       return { ...state, profile: payload }
@@ -55,6 +57,31 @@ export default function reducer(state = initialState, action) {
     default:
       return state
   }
+}
+
+export const createProfile = (profileInfo) => async dispatch => {
+  console.log('Profile Info: ', profileInfo);
+  await axios.post(`${process.env.REACT_APP_API}/signup`, profileInfo)
+
+  let test = await axios({
+    method: "POST",
+    url:`${process.env.REACT_APP_API}/api/v1/allUsers`
+    ,
+    data: {
+      username: profileInfo.username,
+    },
+  })
+  .then(res => {
+    console.log("res", res.data.message);
+  })
+  .catch(err => {
+    console.log("error in request", err);
+  });
+  console.log('What was stored: ', test);
+  // dispatch({
+  //   type: 'createProfile',
+  //   payload: userProfile.data
+  // })
 }
 
 export const setProfile = (profileInfo) => async dispatch => {
