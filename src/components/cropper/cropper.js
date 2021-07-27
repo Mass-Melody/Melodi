@@ -94,7 +94,7 @@ const upload = async () => {
 			response.json().then(resp => {
 
 				// The variable below is the string you will need to store when updating the user's db record with the profile photo
-				const profilePhotoUrl = resp.data.location;
+				const profilePhotoUrl = resp.data;
 				console.log(profilePhotoUrl);
 			});
 
