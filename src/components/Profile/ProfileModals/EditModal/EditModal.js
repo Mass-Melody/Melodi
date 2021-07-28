@@ -121,9 +121,6 @@ export default function SimpleModal() {
     } else {
       userData.playlist = profileData.playlist
     }
-
-    console.log("THIS IS A PLAYLIST STRING", userData.playlist)
-    
     dispatch(editProfile(userData, userProfileName))
     handleClose()
   }

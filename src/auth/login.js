@@ -3,7 +3,7 @@ import { Button, Grid, makeStyles } from '@material-ui/core';
 import { If, Then, Else } from 'react-if';
 import { LoginContext } from './context.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfile, yourProfile } from '../store/profile.js'
+import { setProfile, yourProfile, populateFriends } from '../store/profile.js'
 import { Link } from "react-router-dom";
 import cookie from 'react-cookies';
 
@@ -57,6 +57,7 @@ function Login() {
   const userContext = useContext(LoginContext);
   const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.profile.profile)
+  const personalProfile = useSelector((state) => state.profile.personalProfile)
   // WE NEED TO FIND A WAY TO UPDATE WHEN WE GO CLICK GO TO PROFILE SO THAT IT BRINGS REDIRECTS US TO THE PAGE WITH THE  CORRECT INFO
   // useEffect(() => {
 
@@ -77,12 +78,9 @@ function Login() {
   }
 
   // Maintains the user profile from the very first render
-  function homePage() {
-    const username = cookie.load('username') || null;
-    //admin
-    if (username) {
-      dispatch(yourProfile(username))
-    }
+  async function homePage() {
+    await dispatch(yourProfile(personalProfile))
+    .then(dispatch(populateFriends(currentUser.friends)))
   }
 
   return (
@@ -93,9 +91,9 @@ function Login() {
     >
       <If condition={userContext.isLoggedIn}>
         <Then>
-          <Link onClick={() => homePage()} to={`/users/account/${cookie.load('username')}`}>
+          <Link onClick={() => homePage()} to={`/users/account/${personalProfile}`}>
             {currentUser.picture ?
-              <img style={{width: 50, height: 50, marginRight: '1rem', borderRadius: '50%'}}src={currentUser.picture} alt="user profile" />
+              <img style={{ width: 50, height: 50, marginRight: '1rem', borderRadius: '50%' }} src={currentUser.picture} alt="user profile" />
               :
               <p className={classes.button}>Home</p>
             }

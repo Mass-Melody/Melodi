@@ -63,15 +63,17 @@ function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("THIS IS HANDLE SUBMIT")
     const username = cookie.load('username') || null;
-    //admin
+
     if (username) {
       dispatch(yourProfile(username))
     }
   }
+  
   return (
     <div className={classes.container}>
-      <form onSubmit={() => handleSubmit()}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         {/* BUTTON DOES NOT WORK */}
         <Link to='/search'>
           <button className={classes.title}>SEARCH</button>
