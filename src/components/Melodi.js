@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import Profile from './Profile/Profile.js'
-import Hero from './Home/Hero.js'
+import Home from './Home/Home.js'
 import Modal from './CreateAccModal/Modal.js'
 import SearchPage from './Search/Search.js'
 import Friends from './Friends/Friends.js'
@@ -33,7 +33,7 @@ function Melodi() {
       <Search />
       <Header />
       <Route exact path="/">
-        <Hero />
+        <Home />
       </Route>
       <Route exact path="/search">
         <SearchPage />
