@@ -1,5 +1,5 @@
 import React from 'react'
-import Window from './Window.js'
+// import Window from './Window.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles, Divider } from '@material-ui/core';
 import { useSelector } from 'react-redux'
@@ -50,7 +50,7 @@ function Contacts() {
       align-items="flex-end"
       justifyContent="flex-end"
       className={classes.contacts}>
-      <Window />
+      {/* <Window /> */}
 
       <Grid
         container
