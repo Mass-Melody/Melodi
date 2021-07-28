@@ -3,6 +3,7 @@ import axios from 'axios'
 const initialState = {
   personalProfile: null,
   personalProfilePicture: '',
+  listOfFriends: [],
   currentlyVisiting: null,
   users: [],
   profile: {
@@ -30,7 +31,6 @@ export default function reducer(state = initialState, action) {
     case 'createProfile':
       return { ...state, profile: payload }
     case 'editProfile':
-      console.log('SET PROFILE', payload)
       return { ...state, profile: payload }
     case 'setProfile':
       return { ...state, personalProfile: payload.username, profile: payload }
@@ -47,12 +47,13 @@ export default function reducer(state = initialState, action) {
     case 'removeFriend':
       let updateFriends = state.profile.friends.filter(person => payload !== person.username)
       return { ...state, profile: { ...state.profile, friends: updateFriends } }
-    case 'addFriend':
-      return { ...state, profile: { ...state.profile, friends: [...state.profile.friends, payload] } }
     case 'getAllUsers':
       return { ...state, users: payload }
     case 'yourProfile':
       return { ...state, personalProfile: payload.username, profile: payload }
+    case 'populateFriends':
+      console.log('PAYLOAODADAD', payload)
+      return { ...state, listOfFriends: payload }
     default:
       return state
   }
@@ -88,9 +89,11 @@ export const setProfile = (profileInfo) => async dispatch => {
   let parseInterests = JSON.parse(userProfile.data.interests);
   let parseDetails = JSON.parse(userProfile.data.details);
   let parsePosts = JSON.parse(userProfile.data.posts)
+  let parseFriends = JSON.parse(userProfile.data.friends)
   userProfile.data.interests = parseInterests;
   userProfile.data.details = parseDetails;
   userProfile.data.posts = parsePosts;
+  userProfile.data.friends = parseFriends;
   dispatch({
     type: 'setProfile',
     payload: userProfile.data
@@ -98,14 +101,14 @@ export const setProfile = (profileInfo) => async dispatch => {
 }
 
 export const editProfile = (info, userProfileName) => async dispatch => {
-  // PUT to database and edit VIA username
-  // Stringify then put in database
   let stringifiedProfile = {
     ...info,
     interests: JSON.stringify(info.interests),
     details: JSON.stringify(info.details),
-    posts: JSON.stringify(info.posts)
+    posts: JSON.stringify(info.posts),
+    friends: JSON.stringify(info.friends)
   }
+  console.log('THIS IS STRINGIFIED PROFILE', stringifiedProfile)
   // Turn back into Json and display
   let { url, profile } = {
     url: `${process.env.REACT_APP_API}/api/v1/allUsers/${userProfileName}`,
@@ -125,13 +128,21 @@ export const editProfile = (info, userProfileName) => async dispatch => {
   })
 }
 
-// export const populateFriends = () => async dispatch =>{
 
-//   return {
-//     type: 'populateFriends',
-//     payload: post
-//   }
-// }
+export const populateFriends = (friends) => async dispatch => {
+  let getFriends = []
+
+  for (let i = 0; i < friends.length; i++) {
+    let gotFriend = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${friends[i]}`)
+    console.log(gotFriend.data)
+    getFriends.push(gotFriend.data)
+  }
+  console.log(getFriends)
+  dispatch({
+    type: 'populateFriends',
+    payload: getFriends
+  })
+}
 
 export const newPost = (post) => {
   return {
@@ -154,32 +165,6 @@ export const removeFriend = (username) => {
   }
 }
 
-export const addFriend = (info, userProfileName) => async dispatch => {
-  let stringifiedProfile = {
-    ...info,
-    interests: JSON.stringify(info.interests),
-    details: JSON.stringify(info.details),
-    posts: JSON.stringify(info.posts)
-  }
-  // Turn back into Json and display
-  let { url, profile } = {
-    url: `${process.env.REACT_APP_API}/api/v1/allUsers/${userProfileName}`,
-    profile: stringifiedProfile
-  }
-  // AXIOS CALL
-  await axios.put(url, profile)
-    .then(response => {
-      console.log("RESPONSE DATA DID IT WORK???", response.data)
-    }).catch(e => {
-      console.log(e)
-    })
-  // Stringify Details and Interest
-  dispatch({
-    type: 'addFriend',
-    payload: info
-  })
-}
-
 export const navigateProfile = (profileInfo) => async dispatch => {
   let userProfile = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${profileInfo.username}`)
   let parseInterests = JSON.parse(userProfile.data.interests);
@@ -199,9 +184,11 @@ export const yourProfile = (user) => async dispatch => {
   let parseInterests = JSON.parse(userProfile.data.interests);
   let parseDetails = JSON.parse(userProfile.data.details);
   let parsePosts = JSON.parse(userProfile.data.posts)
+  let parseFriends = JSON.parse(userProfile.data.friends)
   userProfile.data.interests = parseInterests;
   userProfile.data.details = parseDetails;
   userProfile.data.posts = parsePosts;
+  userProfile.data.friends = parseFriends;
   dispatch({
     type: 'yourProfile',
     payload: userProfile.data
@@ -214,9 +201,11 @@ export const getAllUsers = () => async dispatch => {
     let parseInterests = JSON.parse(profile.interests);
     let parseDetails = JSON.parse(profile.details);
     let parsePosts = JSON.parse(profile.posts)
+    let parseFriends = JSON.parse(profile.friends)
     profile.interests = parseInterests;
     profile.details = parseDetails;
     profile.posts = parsePosts;
+    profile.friends = parseFriends;
     return profile
   })
   dispatch({
