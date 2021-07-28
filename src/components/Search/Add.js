@@ -34,15 +34,7 @@ function Add(props) {
     data.friends = [...data.friends, addFriend]
     dispatch(editProfile(data, personalProfile))
   }
-
-  // useEffect(() => {
-  //   const username = cookie.load('username') || null;
-  //   if (username) {
-  //     dispatch(yourProfile(username))
-  //     setFormData(profileData)
-  //   }
-  // }, [])
-
+  
   return (
     <div>
       <If condition={userContext.isLoggedIn}>

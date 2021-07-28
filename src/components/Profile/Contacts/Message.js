@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles, Button } from '@material-ui/core';
-import { removeFriend } from '../../../store/profile.js';
+import { messageUser } from '../../../store/profile.js';
 import { useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
@@ -12,16 +12,18 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Message({friendName}) {
+function Message(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const removePerson = (person) => {
-    dispatch(removeFriend(person.username))
+  
+  const chooseUser = (username) => {
+    dispatch(messageUser(username))
   }
+
 
   return (
     <div>
-      <Button variant="contained" color="primary">
+      <Button onClick={() => chooseUser(props.friendObj.username)}variant="contained" color="primary">
         Message
       </Button>
     </div>
