@@ -5,8 +5,6 @@ import { makeStyles } from '@material-ui/core';
 import { If, Then } from 'react-if';
 import { useDispatch, useSelector } from 'react-redux'
 import { editProfile, yourProfile } from '../../store/profile.js'
-import cookie from 'react-cookies';
-import { Socket } from 'socket.io-client';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,10 +31,7 @@ function Add(props) {
 
   const addNewFriend = (e, data, userObj) => {
     let addFriend = userObj.username
-    console.log('DATA BEFORE,', data)
     data.friends = [...data.friends, addFriend]
-    console.log('ADDING FRIEND...',addFriend)
-    console.log('DATA FRIENDS',data.friends)
     dispatch(editProfile(data, personalProfile))
   }
 

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Friends() {
-  const friendsList = useSelector((state) => state.profile.profile.friends)
+  const friendsList = useSelector((state) => state.profile.listOfFriends)
   const classes = useStyles()
   const { username } = useParams()
 
