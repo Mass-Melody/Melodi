@@ -86,7 +86,7 @@ export default function SimpleModal() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handlePicture = (e, imageUrl) => {
+  const handlePicture = (imageUrl) => {
     setFormData({ ...formData, picture: imageUrl })
   }
 
