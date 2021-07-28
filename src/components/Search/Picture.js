@@ -10,13 +10,18 @@ const useStyles = makeStyles((theme) => ({
     width: '100px',
     height: '100px',
     marginRight: '2rem'
+  },
+  font: {
+    fontSize: '1rem',
+    fontFamily: 'sans-serif',
+    marginBottom: '1rem'
   }
 }))
 
 function Picture(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  
+
   const goToProfile = (user) => {
     dispatch(navigateProfile(user))
   }
@@ -40,11 +45,11 @@ function Picture(props) {
         item
         direction="column"
         align-itmes="center"
-        justifyContent="flex-start"
+        justifyContent="space-around"
       >
-        <p>{props.userObj.firstName} {props.userObj.lastName}</p>
-        <p>{props.userObj.location}</p>
-        <p>{props.userObj.instrument}</p>
+        <p className={classes.font}>{props.userObj.firstName} {props.userObj.lastName}</p>
+        <p className={classes.font}>{props.userObj.location}</p>
+        <p className={classes.font}>{props.userObj.instrument}</p>
       </Grid>
     </Grid>
   )

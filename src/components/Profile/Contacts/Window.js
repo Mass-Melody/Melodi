@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Page = styled.div`
   display: flex;
@@ -19,8 +19,7 @@ const Container = styled.div`
   display: flex;
   margin: auto;
   flex-direction: column;
-  height: 320px;
-  max-height: 460px;
+  height: 280px;
   overflow: auto;
   width: 100%;
   border: 1px solid lightgray;
@@ -48,7 +47,7 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-  background-color: pink;
+  background-color: #69bef7;
   width: 100%;
   border: none;
   height: 50px;
@@ -58,7 +57,11 @@ const Button = styled.button`
 `;
 
 const Form = styled.form`
-  width: 400px;
+  width: 320px;
+`;
+
+const Span = styled.span`
+  color: white
 `;
 
 const MyRow = styled.div`
@@ -70,7 +73,7 @@ const MyRow = styled.div`
 
 const MyMessage = styled.div`
   width: 45%;
-  background-color: pink;
+  background-color: #69bef7;
   color: #46516e;
   padding: 10px;
   margin-right: 5px;
@@ -111,9 +114,9 @@ const Window = () => {
 
     socketRef.current.on("your id", id => {
       setYourID(id);
-      socketRef.current.emit("register user", {username: personalProfile, id: id})
+      socketRef.current.emit("register user", { username: personalProfile, id: id })
     })
-    
+
     socketRef.current.on("message", (message) => {
       receivedMessage(message);
     })
@@ -138,9 +141,10 @@ const Window = () => {
     setMessage(e.target.value);
     console.log(message)
   }
-  
+
   return (
-    <Page>
+    <Page style={{ position: 'relative' }}>
+      <p style={{fontSize: '1rem', fontFamily: 'sans-serif', margin: '5px 0'}}>{messageUser}</p> <span style={{ position: 'absolute', top: 3, right: 10, cursor: 'pointer' , fontWeight: 'bold'}}>x</span>
       <Container>
         {messages.map((message, index) => {
           if (message.profile === personalProfile) {
@@ -163,7 +167,7 @@ const Window = () => {
       </Container>
       <Form onSubmit={sendMessage}>
         <TextArea value={message} onChange={handleChange} placeholder="Say something..." />
-        <Button style={{cursor: 'pointer'}}>Send</Button>
+        <Button style={{ cursor: 'pointer' }}><Span>Send</Span></Button>
       </Form>
     </Page>
   );

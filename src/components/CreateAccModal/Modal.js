@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, TextField, Button } from '@material-ui/core';
+import { createProfile } from '../../store/profile.js'
+import { useDispatch } from 'react-redux'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -48,43 +50,70 @@ export default function SimpleModal() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [formData, setFormData] = useState({})
+  const [verify, setVerify] = useState('')
+  const dispatch = useDispatch()
 
   const handleOpen = () => {
     setOpen(true);
   };
 
+  const handleChange = (e) => {
+    if (e.target.name === 'verify') {
+      setVerify(e.target.value)
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (formData.password !== verify) {
+      alert('Please retype your password correctly')
+    }
+    dispatch(createProfile(formData))
+    handleClose()
+  }
+
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">CREATE NEW ACCOUNT</h2>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form onSubmit={(e) => handleSubmit(e)} className={classes.root} noValidate autoComplete="off">
         <TextField
+          onChange={(e) => handleChange(e)}
           required
           id="outlined-required"
           label="Username"
+          name="username"
           variant="outlined"
         />
         <TextField
+          onChange={(e) => handleChange(e)}
           required
           id="outlined-password-input"
           label="Password"
           type="password"
+          name="password"
           autoComplete="current-password"
           variant="outlined"
         />
         <TextField
+          onChange={(e) => handleChange(e)}
           required
           id="outlined-password-input"
           label="Re-type Password"
           type="password"
+          name="verify"
           autoComplete="current-password"
           variant="outlined"
         />
         <Button variant="contained" color="primary">
-        Create Account
+          Create Account
       </Button>
       </form>
       <button className={classes.close} type="button" onClick={handleClose}>

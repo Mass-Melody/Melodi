@@ -29,12 +29,17 @@ export default function reducer(state = initialState, action) {
   const { type, payload } = action
 
   switch (type) {
-    case 'createProfile':
-      return { ...state, profile: payload }
+
+
+
+
+
+
+
     case 'editProfile':
       return { ...state, profile: payload }
     case 'setProfile':
-      return { ...state, personalProfile: payload.username, profile: payload }
+      return { ...state, personalProfilePicture: payload.picture, personalProfile: payload.username, profile: payload }
     case 'navigateProfile':
       return { ...state, profile: payload }
     case 'newPost':
@@ -46,14 +51,12 @@ export default function reducer(state = initialState, action) {
       let updatePost = state.profile.posts.filter(post => payload !== post.id)
       return { ...state, profile: { ...state.profile, posts: updatePost } }
     case 'removeFriend':
-      let updateFriends = state.profile.friends.filter(person => payload !== person.username)
-      return { ...state, profile: { ...state.profile, friends: updateFriends } }
+      return { ...state, profile: payload }
     case 'getAllUsers':
       return { ...state, users: payload }
     case 'yourProfile':
-      return { ...state, personalProfile: payload.username, profile: payload }
+      return { ...state, profilePicture: payload.picture, personalProfile: payload.username, profile: payload }
     case 'populateFriends':
-      console.log('PAYLOAODADAD', payload)
       return { ...state, listOfFriends: payload }
     case 'setMessageUser':
       return { ...state, messageUser: payload }
@@ -63,7 +66,6 @@ export default function reducer(state = initialState, action) {
 }
 
 export const createProfile = (profileInfo) => async dispatch => {
-  console.log('Profile Info: ', profileInfo);
   await axios.post(`${process.env.REACT_APP_API}/signup`, profileInfo)
 
   let test = await axios({
@@ -76,15 +78,12 @@ export const createProfile = (profileInfo) => async dispatch => {
   })
     .then(res => {
       console.log("res", res.data.message);
+      alert('Account Successfully Created!')
     })
     .catch(err => {
+      alert('Error in request')
       console.log("error in request", err);
     });
-  console.log('What was stored: ', test);
-  // dispatch({
-  //   type: 'createProfile',
-  //   payload: userProfile.data
-  // })
 }
 
 export const setProfile = (profileInfo) => async dispatch => {
@@ -134,17 +133,23 @@ export const editProfile = (info, userProfileName) => async dispatch => {
 
 export const populateFriends = (friends) => async dispatch => {
   let getFriends = []
-
-  for (let i = 0; i < friends.length; i++) {
-    let gotFriend = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${friends[i]}`)
-    console.log(gotFriend.data)
-    getFriends.push(gotFriend.data)
+  console.log('GET FRIENDS', getFriends)
+  if (friends.length === 0) {
+    dispatch({
+      type: 'populateFriends',
+      payload: getFriends
+    })
+  } else {
+    for (let i = 0; i < friends.length; i++) {
+      let gotFriend = await axios.get(`${process.env.REACT_APP_API}/api/v1/allUsers/${friends[i]}`)
+      getFriends.push(gotFriend.data)
+    }
+    dispatch({
+      type: 'populateFriends',
+      payload: getFriends
+    })
   }
-  console.log(getFriends)
-  dispatch({
-    type: 'populateFriends',
-    payload: getFriends
-  })
+
 }
 
 export const newPost = (post) => {
@@ -154,19 +159,58 @@ export const newPost = (post) => {
   }
 }
 
-export const deletePost = (postId) => {
-  return {
-    type: 'deletePost',
-    payload: postId
+export const deletePost = (info, userProfileName) => async dispatch => {
+  let stringifiedProfile = {
+    ...info,
+    interests: JSON.stringify(info.interests),
+    details: JSON.stringify(info.details),
+    posts: JSON.stringify(info.posts),
+    friends: JSON.stringify(info.friends)
   }
+  // Turn back into Json and display
+  let { url, profile } = {
+    url: `${process.env.REACT_APP_API}/api/v1/allUsers/${userProfileName}`,
+    profile: stringifiedProfile
+  }
+  // AXIOS CALL
+  await axios.put(url, profile)
+    .then(response => {
+    }).catch(e => {
+      console.log(e)
+    })
+  // Stringify Details and Interest
+  dispatch({
+    type: 'deletePost',
+    payload: info
+  })
 }
 
-export const removeFriend = (username) => {
-  return {
-    type: 'removeFriend',
-    payload: username
+export const removeFriend = (info, userProfileName) => async dispatch => {
+  let stringifiedProfile = {
+    ...info,
+    interests: JSON.stringify(info.interests),
+    details: JSON.stringify(info.details),
+    posts: JSON.stringify(info.posts),
+    friends: JSON.stringify(info.friends)
   }
+  // Turn back into Json and display
+  let { url, profile } = {
+    url: `${process.env.REACT_APP_API}/api/v1/allUsers/${userProfileName}`,
+    profile: stringifiedProfile
+  }
+  // AXIOS CALL
+  await axios.put(url, profile)
+    .then(response => {
+    }).catch(e => {
+      console.log(e)
+    })
+  // Stringify Details and Interest
+  dispatch({
+    type: 'removeFriend',
+    payload: info
+  })
 }
+
 
 export const messageUser = (username) => {
   return {

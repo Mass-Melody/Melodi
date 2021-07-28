@@ -1,17 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Window from './Window.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles, Divider } from '@material-ui/core';
 import { useSelector } from 'react-redux'
+import { If, Then } from 'react-if'
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    height: "100%",
     width: '280px',
-    border: '2px solid black',
-    borderTopLeftRadius: '15px',
-    borderTopRightRadius: '15px',
-    overflow: 'auto'
+    border: '2px solid #E2F1F5',
+    borderRadius: '15px',
+    height: '500px',
+    position: 'fixed',
+    top: 260,
+    right: 0
+  },
+  contactContainer: {
+    width: '280px',
+    maxHeight: '400px',
+    overflow: 'auto',
   },
   searchResults: {
     width: '100%',
@@ -28,29 +35,28 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     width: '100%'
   },
-  contacts: {
-    position: 'fixed',
-    top: '30%',
-    bottom: 0,
-    right: 0,
-    width: '700px',
-    display: 'flex',
-    alignItems: "flex-end",
-justifyContent:"flex-end"
+
+  title: {
+    fontSize: '1.3rem',
+    fontFamily: 'sans-serif',
+    cursor: 'pointer'
   }
 }))
 
 function Contacts() {
   const friendsList = useSelector((state) => state.profile.listOfFriends)
-  console.log('==========FRIENDS LIST', friendsList)
   const classes = useStyles()
+  const [visibility, setVisibility] = useState('500px')
+  const toggleFriendsList = () => {
+    let show = visibility === '500px' ? '2rem' : '500px'
+    setVisibility(show)
+  }
+
   return (
-    <Grid container
-      direction="row"
-      align-items="flex-end"
-      justifyContent="flex-end"
-      className={classes.contacts}>
-      <Window />
+    <>
+      <Grid container style={{ width: '160px', height: '280', position: 'fixed', bottom: 0, right: 175, margin: 0 }}>
+        <Window />
+      </Grid>
 
       <Grid
         container
@@ -60,23 +66,33 @@ function Contacts() {
       >
         <Grid item
           className={classes.friendHeading}>
-          <p >Friends List</p>
+          <p onClick={() => toggleFriendsList()} className={classes.title}>Friends List</p>
         </Grid>
-        {friendsList && friendsList.map(friend =>
+        <Grid
+          container
+          direction="row"
+          align-items="center"
+          className={classes.contactContainer}
+        >
+          <If condition={friendsList.length >= 1}>
+            <Then>
+            {friendsList.map(friend =>
             <Grid item className={classes.searchResults}>
               <Grid
                 container
                 direction="row"
                 align-items="center"
                 justifyContent="space-between"
-
               >
                 <Grid item><Picture friendObj={friend} /></Grid>
               </Grid>
             </Grid>
-        )}
+          )}
+            </Then>
+          </If>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   )
 }
 export default Contacts

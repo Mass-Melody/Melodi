@@ -26,15 +26,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'sans-serif'
   },
   logout: {
-    background: 'white',
-    fontSize: '1rem',
+    color: 'white',
+    border: '1px solid white',
+    borderBottom: '1px solid white',
     padding: '1rem',
-    borderRadiusTopRight: '15%',
-    borderRadiusBottomRight: '15%',
-    textDecoration: 'none',
-    color: 'black',
+    borderRadius: '15px',
     fontFamily: 'sans-serif',
-    border: 'none'
+    textDecoration: 'none',
+    fontSize: '1rem'
   },
   login: {
     color: 'white',
@@ -42,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: '1px solid white',
     padding: '1rem',
     borderRadius: '15px',
-    fontFamily: 'sans-serif'
+    fontFamily: 'sans-serif',
+    textDecoration: 'none',
   },
   input: {
     fontsize: '1rem',
@@ -56,6 +56,7 @@ function Login() {
   const [user, setUser] = useState({})
   const userContext = useContext(LoginContext);
   const dispatch = useDispatch()
+  const profilePicture = useSelector((state) => state.profile.profilePicture)
   const currentUser = useSelector((state) => state.profile.profile)
   const personalProfile = useSelector((state) => state.profile.personalProfile)
   // WE NEED TO FIND A WAY TO UPDATE WHEN WE GO CLICK GO TO PROFILE SO THAT IT BRINGS REDIRECTS US TO THE PAGE WITH THE  CORRECT INFO
@@ -80,7 +81,7 @@ function Login() {
   // Maintains the user profile from the very first render
   async function homePage() {
     await dispatch(yourProfile(personalProfile))
-    .then(dispatch(populateFriends(currentUser.friends)))
+      .then(dispatch(populateFriends(currentUser.friends)))
   }
 
   return (
@@ -93,13 +94,13 @@ function Login() {
         <Then>
           <Link onClick={() => homePage()} to={`/users/account/${personalProfile}`}>
             {currentUser.picture ?
-              <img style={{ width: 50, height: 50, marginRight: '1rem', borderRadius: '50%' }} src={currentUser.picture} alt="user profile" />
+              <img style={{ width: 50, height: 50, marginRight: '1rem', borderRadius: '50%' }} src={profilePicture} alt="user profilepic" />
               :
               <p className={classes.button}>Home</p>
             }
           </Link>
-          <button className={classes.logout} type="button" onClick={userContext.logout}>
-            <Link to="/" >
+          <button style={{background: 'transparent', border: 'none'}} type="button" onClick={userContext.logout}>
+            <Link className={classes.logout} to="/" >
               Logout
           </Link>
           </button>

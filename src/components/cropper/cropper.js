@@ -56,7 +56,7 @@ function RenderCropper({ handleCropper, handlePicture }) {
 
 	const upload = async () => {
 		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning') }
-
+		console.log('THIS IS IN CROPPER', image)
 		const canvas = await getCroppedImg(image, croppedArea);
 		console.log('cropped image', canvas);
 		const canvasDataUrl = canvas.toDataURL('image/jpeg');
@@ -77,7 +77,7 @@ function RenderCropper({ handleCropper, handlePicture }) {
 				}
 
 			});
-
+			alert('Profile Image Uploaded!')
 			handlePicture(response.data);
 		} catch (err) {
 			console.error('====== ERROR FETCHING DATA FROM PHOTO UPLOAD SERVER ======:', err.message);
