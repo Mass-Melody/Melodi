@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageList: {
     flexWrap: 'nowrap',
+   
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
     width: '100%',
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
   img: {
-    borderRadius: '50%',
+    padding: '2rem',
   }
 }));
 
@@ -63,7 +64,7 @@ export default function Discover() {
             <ImageListItem key={idx}>
               <img src={band.img} alt={band.title} className={classes.img} />
               <ImageListItemBar
-                title={band.title}
+                
                 classes={{
                   root: classes.titleBar,
                   title: classes.title,
