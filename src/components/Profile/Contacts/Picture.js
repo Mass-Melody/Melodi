@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Picture(props) {
   const classes = useStyles()
+  console.log('THIS IS PROPS',props)
   return (
     <Grid
       container

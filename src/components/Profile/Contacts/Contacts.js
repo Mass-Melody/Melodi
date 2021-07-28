@@ -1,6 +1,5 @@
 import React from 'react'
-// import Message from './Message.js'
-// import Window from './Window.js'
+import Window from './Window.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles, Divider } from '@material-ui/core';
 import { useSelector } from 'react-redux'
@@ -42,7 +41,8 @@ justifyContent:"flex-end"
 }))
 
 function Contacts() {
-  const friendsList = useSelector((state) => state.profile.profile.friends)
+  const friendsList = useSelector((state) => state.profile.listOfFriends)
+  console.log('==========FRIENDS LIST', friendsList)
   const classes = useStyles()
   return (
     <Grid container
@@ -50,13 +50,12 @@ function Contacts() {
       align-items="flex-end"
       justifyContent="flex-end"
       className={classes.contacts}>
-      {/* <Window /> */}
+      <Window />
 
       <Grid
         container
         direction="row"
         align-items="center"
-        justifyContent="flex-start"
         className={classes.container}
       >
         <Grid item
@@ -64,7 +63,6 @@ function Contacts() {
           <p >Friends List</p>
         </Grid>
         {friendsList && friendsList.map(friend =>
-          <>
             <Grid item className={classes.searchResults}>
               <Grid
                 container
@@ -75,9 +73,7 @@ function Contacts() {
               >
                 <Grid item><Picture friendObj={friend} /></Grid>
               </Grid>
-              <Divider />
             </Grid>
-          </>
         )}
       </Grid>
     </Grid>

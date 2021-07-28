@@ -1,9 +1,13 @@
-import React from 'react'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import React, { useState, useEffect, useContext } from 'react'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { LoginContext } from '../../auth/context.js';
 import { makeStyles } from '@material-ui/core';
+import { If, Then } from 'react-if';
 import { useDispatch, useSelector } from 'react-redux'
-import { addFriend, removeFriend } from '../../store/profile.js'
+import { editProfile, yourProfile } from '../../store/profile.js'
+import cookie from 'react-cookies';
+import { Socket } from 'socket.io-client';
+
 
 const useStyles = makeStyles((theme) => ({
   addButton: {
@@ -22,26 +26,49 @@ const useStyles = makeStyles((theme) => ({
 function Add(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const isFriend = useSelector((state) => state.profile.profile.friends)
+  const userContext = useContext(LoginContext);
+  const profileData = useSelector((state) => state.profile.profile)
+  const personalProfile = useSelector((state) => state.profile.personalProfile)
+  const [formData, setFormData] = useState(profileData)
 
-  const addNewFriend = (user) => {
-    dispatch(addFriend(user))
+  const addNewFriend = (e, data, userObj) => {
+    let addFriend = userObj.username
+    console.log('DATA BEFORE,', data)
+    data.friends = [...data.friends, addFriend]
+    console.log('ADDING FRIEND...',addFriend)
+    console.log('DATA FRIENDS',data.friends)
+    dispatch(editProfile(data, personalProfile))
   }
 
-  const removePerson = (person) => {
-    dispatch(removeFriend(person.username))
-  }
+  // useEffect(() => {
+  //   const username = cookie.load('username') || null;
+  //   if (username) {
+  //     dispatch(yourProfile(username))
+  //     setFormData(profileData)
+  //   }
+  // }, [])
 
   return (
     <div>
-      {
-        isFriend.includes(props.userObj.username) ?
-          <RemoveCircleIcon onClick={() => removePerson(props.userObj.username)} className={classes.removeButton} />
-          :
-          <AddCircleIcon onClick={() => addNewFriend(props.userObj.username)} className={classes.addButton} />
-      }
+      <If condition={userContext.isLoggedIn}>
+        <Then>
+          <AddCircleIcon onClick={(e) => addNewFriend(e, formData, props.userObj)} className={classes.addButton} />
+        </Then>
+      </If>
     </div>
   )
 }
 
 export default Add
+
+
+// const removePerson = (person) => {
+//   dispatch(removeFriend(person.username))
+// }
+
+// {
+//   isFriend.includes(props.userObj.username) ?
+//     <RemoveCircleIcon onClick={() => removePerson(props.userObj)} className={classes.removeButton} />
+//     :
+//     <AddCircleIcon onClick={() => addNewFriend(props.userObj)} className={classes.addButton} />
+// }

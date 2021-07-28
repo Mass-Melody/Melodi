@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { Grid, makeStyles, Modal, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import cookie from 'react-cookies';
+import { yourProfile } from '../../store/profile.js'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -61,15 +63,21 @@ function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('THIS BUTTON WORKS')
+    console.log("THIS IS HANDLE SUBMIT")
+    const username = cookie.load('username') || null;
+
+    if (username) {
+      dispatch(yourProfile(username))
+    }
   }
+  
   return (
     <div className={classes.container}>
-      <form onSubmit={() => handleSubmit()}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         {/* BUTTON DOES NOT WORK */}
-      <Link to='/search'>
-        <button className={classes.title}>SEARCH</button>
-      </Link>
+        <Link to='/search'>
+          <button className={classes.title}>SEARCH</button>
+        </Link>
         <input onChange={() => handleChange()} className={classes.input} type="text" name="search" />
       </form>
     </div>

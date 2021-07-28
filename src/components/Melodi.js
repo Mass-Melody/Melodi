@@ -30,13 +30,13 @@ function Melodi() {
 
   return (
     <div>
-      <Route exact path="/search">
-        <SearchPage />
-      </Route>
       <Search />
       <Header />
       <Route exact path="/">
         <Hero />
+      </Route>
+      <Route exact path="/search">
+        <SearchPage />
       </Route>
       <Route path="/users/account/:username" component={Profile} />
       <Route exact path="/friends/:username" component={Friends}>
