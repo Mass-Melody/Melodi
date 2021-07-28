@@ -10,7 +10,7 @@ function TextboxOther(props) {
   return (
     <div>
 
-      <RenderAvatar handleChange={props.handleChange}/>
+      <RenderAvatar handlePicture={props.handlePicture} handleChange={props.handleChange}/>
       <TextField
         required
         id="outlined-required"

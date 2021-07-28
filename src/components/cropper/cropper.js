@@ -10,6 +10,7 @@ import CancelIcon from '@material-ui/icons/Clear';
 import getCroppedImg from '../../utils/cropImage.js';
 // must convert to file object before posting to AWS S3 bucket
 import dataURLtoFile from '../../utils/dataURLtoFile';
+import axios from 'axios';
 
 const useStyles = makeStyles({
 	iconButton: {
@@ -67,23 +68,17 @@ function RenderCropper({ handleCropper, handlePicture }) {
 			formData.append('croppedImage', convertedUrlToFile);
 			// the url below will need to be replaced with the deployed url of the photo upload server
 
-			const photoServer = 'https://melodi-photo-upload.herokuapp.com/';
+			const photoServer = 'https://melodi-photo-upload.herokuapp.com';
 
-			const res = await fetch(`${photoServer}api/users/setProfilePic`, {
-				method: 'POST',
-				mode: 'no-cors',
-				body: formData,
-				type: 'multipart/form-data'
-			})
-			console.log(res)
+			const response = await axios.post(`${photoServer}/api/users/setProfilePic`, formData, {
+				
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
 
-			res.json().then(resp => {
-
-				// The variable below is the string you will need to store when updating the user's db record with the profile photo
-				const profilePhotoUrl = resp.data;
-				handlePicture(profilePhotoUrl)
 			});
 
+			handlePicture(response.data);
 		} catch (err) {
 			console.error('====== ERROR FETCHING DATA FROM PHOTO UPLOAD SERVER ======:', err.message);
 		}
