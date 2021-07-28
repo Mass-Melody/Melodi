@@ -33,7 +33,7 @@ function Picture(props) {
         justifyContent="flex-start"
       >
         <p>{props.friendObj.firstName} {props.friendObj.lastName}</p>
-        <Message />
+        <Message friendObj={props.friendObj}/>
       </Grid>
     </Grid>
   )

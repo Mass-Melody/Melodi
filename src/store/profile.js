@@ -1,6 +1,7 @@
 import axios from 'axios'
 // Update personalProfile picture upsen setting and loggin in
 const initialState = {
+  messageUser: '',
   personalProfile: null,
   personalProfilePicture: '',
   listOfFriends: [],
@@ -54,6 +55,8 @@ export default function reducer(state = initialState, action) {
     case 'populateFriends':
       console.log('PAYLOAODADAD', payload)
       return { ...state, listOfFriends: payload }
+    case 'setMessageUser':
+      return { ...state, messageUser: payload }
     default:
       return state
   }
@@ -161,6 +164,13 @@ export const deletePost = (postId) => {
 export const removeFriend = (username) => {
   return {
     type: 'removeFriend',
+    payload: username
+  }
+}
+
+export const messageUser = (username) => {
+  return {
+    type: 'setMessageUser',
     payload: username
   }
 }
