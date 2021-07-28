@@ -13,60 +13,49 @@ import dataURLtoFile from '../../utils/dataURLtoFile';
 import axios from 'axios';
 
 const useStyles = makeStyles({
-  iconButton: {
-    position: 'absolute',
-    top: '0',
-    left: '0',
-  },
-  cancelIcon: {
-    '&:hover': {
-      color:'red',
-    },
-  },
+	iconButton: {
+		position: 'absolute',
+		top: '0',
+		left: '0',
+	},
+	cancelIcon: {
+		'&:hover': {
+			color: 'red',
+		},
+	},
 });
 
 function RenderCropper({ handleCropper, handlePicture }) {
 
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const inputRef = React.useRef();
+	const inputRef = React.useRef();
 
-  const triggerFileSelectPopup = () => inputRef.current.click();
+	const triggerFileSelectPopup = () => inputRef.current.click();
 
-  const setStateSnackbarContext = useContext(SnackbarContext);
+	const setStateSnackbarContext = useContext(SnackbarContext);
 
-  const [image, setImage] = React.useState(null);
-  const [croppedArea, setCroppedArea] = React.useState(null);
-  const [crop, setCrop] = React.useState({ x: 0, y: 0});
-  const [zoom, setZoom] = React.useState(1);
+	const [image, setImage] = React.useState(null);
+	const [croppedArea, setCroppedArea] = React.useState(null);
+	const [crop, setCrop] = React.useState({ x: 0, y: 0 });
+	const [zoom, setZoom] = React.useState(1);
 
-  const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
-    setCroppedArea(croppedAreaPixels);
-  };
+	const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
+		setCroppedArea(croppedAreaPixels);
+	};
 
-  const onSelectFile = (event) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.addEventListener('load', () => {
-        setImage(reader.result);
-      });
-    }
-  };
+	const onSelectFile = (event) => {
+		if (event.target.files && event.target.files.length > 0) {
+			const reader = new FileReader();
+			reader.readAsDataURL(event.target.files[0]);
+			reader.addEventListener('load', () => {
+				setImage(reader.result);
+			});
+		}
+	};
 
-  const onDownload = () => {
-    if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning')}
-    generateDownload(image, croppedArea);
-  }
-
-  const clear = () => {
-    if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning')}
-    setImage(null);
-  }
-
-	
-const upload = async () => {
-		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning'); }
+	const upload = async () => {
+		if (!image) { return setStateSnackbarContext(true, 'Please select an image', 'warning') }
 
 		const canvas = await getCroppedImg(image, croppedArea);
 		console.log('cropped image', canvas);
@@ -86,22 +75,22 @@ const upload = async () => {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
-			
+
 			});
 
 			handlePicture(response.data);
 		} catch (err) {
 			console.error('====== ERROR FETCHING DATA FROM PHOTO UPLOAD SERVER ======:', err.message);
 		}
+	}
+		;
 
-	};
-
-  return (
-    <div className='container'>
-      <IconButton className={classes.iconButton} onClick={handleCropper}>
-        <CancelIcon className={classes.cancelIcon} />
-      </IconButton>
-      <div className='container-cropper'>
+	return (
+		<div className='container'>
+			<IconButton className={classes.iconButton} onClick={handleCropper}>
+				<CancelIcon className={classes.cancelIcon} />
+			</IconButton>
+			<div className='container-cropper'>
 				{image ? (
 					<>
 						<div className='cropper'>
@@ -145,10 +134,10 @@ const upload = async () => {
 				>
 					Choose
 				</Button>
-				<Button variant='contained' color='primary' onClick={upload} style={{marginRight: '10px'}}>Upload</Button>
+				<Button variant='contained' color='primary' onClick={upload} style={{ marginRight: '10px' }}>Upload</Button>
 			</div>
-    </div>
-  )
+		</div>
+	)
 }
 
 export default RenderCropper;
