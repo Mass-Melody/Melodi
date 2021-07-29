@@ -27,11 +27,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
-    
   },
   imageList: {
     flexWrap: 'nowrap',
-   
+
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
     width: '100%',
@@ -52,26 +51,23 @@ export default function Discover() {
   const classes = useStyles();
 
   return (
-    <>
+
     <div className={classes.root}>
+      <ImageList className={classes.imageList} cols={2.5}>
+        {bandArr.map((band, idx) => (
+          <ImageListItem key={idx}>
+            <img src={band.img} alt={band.title} className={classes.img} />
+            <ImageListItemBar
+
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
     </div>
-      <div className={classes.root}>
-        <ImageList className={classes.imageList} cols={2.5}>
-          {bandArr.map((band, idx) => (
-            <ImageListItem key={idx}>
-              <img src={band.img} alt={band.title} className={classes.img} />
-              <ImageListItemBar
-                
-                classes={{
-                  root: classes.titleBar,
-                  title: classes.title,
-                }}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </div>
-    </>
 
   );
 }

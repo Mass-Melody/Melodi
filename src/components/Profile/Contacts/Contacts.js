@@ -46,16 +46,15 @@ const useStyles = makeStyles((theme) => ({
 function Contacts() {
   const friendsList = useSelector((state) => state.profile.listOfFriends)
   const classes = useStyles()
-  const [visibility, setVisibility] = useState('500px')
-  const toggleFriendsList = () => {
-    let show = visibility === '500px' ? '2rem' : '500px'
-    setVisibility(show)
+  const [visibility, setVisibility] = useState('hidden')
+  const toggleVisibility = (change) => {
+    setVisibility(change)
   }
 
   return (
     <>
       <Grid container style={{ width: 160, height: 540, position: 'fixed', bottom: 0, right: 175, margin: 0 }}>
-        <Window />
+        <Window toggleVisibility={toggleVisibility} visibility={visibility}/>
       </Grid>
 
       <Grid
@@ -68,7 +67,7 @@ function Contacts() {
       >
         <Grid item
           className={classes.friendHeading}>
-          <p onClick={() => toggleFriendsList()} className={classes.title}>Friends List</p>
+          <p className={classes.title}>Friends List</p>
         </Grid>
         <Grid
           container
@@ -86,7 +85,7 @@ function Contacts() {
                 align-items="center"
                 justifyContent="space-between"
               >
-                <Grid item><Picture friendObj={friend} /></Grid>
+                <Grid item><Picture toggleVisibility={toggleVisibility} friendObj={friend} /></Grid>
               </Grid>
             </Grid>
           )}

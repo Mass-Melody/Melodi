@@ -3,6 +3,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { makeStyles } from '@material-ui/core';
 import { removeFriend, populateFriends } from '../../store/profile.js';
 import { useDispatch, useSelector } from 'react-redux'
+import { If, Then } from 'react-if';
 
 const useStyles = makeStyles((theme) => ({
   removeButton: {
@@ -30,7 +31,11 @@ function Remove({ friendName }) {
 
   return (
     <div>
+      <If condition={profileData.username === personalProfile}>
+        <Then>
       <RemoveCircleIcon onClick={() => removePerson(formData, friendName.username)} className={classes.removeButton} />
+      </Then>
+      </If>
     </div>
   )
 }

@@ -31,24 +31,22 @@ export default function Info() {
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <PublicTwoToneIcon fontSize='large'/>
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Discover" secondary="Discover a wide range of musical genres including bands and acts in your local area! Listen to what your friends are listening to right now!" />
-        </ListItem>
-      </List>
-
-      <List className={classes.root}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
               <GroupAddTwoToneIcon fontSize='large'/>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Meet People" secondary="Follow your friends. Follow other musicians in your area and collaborate!." />
         </ListItem>
       </List>
-
+      <List className={classes.root}>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <PublicTwoToneIcon fontSize='large'/>
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Discover" secondary="Discover a wide range of musical genres including bands and acts in your local area! Listen to what your friends are listening to right now!" />
+        </ListItem>
+      </List>
       <List className={classes.root}>
         <ListItem>
           <ListItemAvatar>

@@ -74,7 +74,7 @@ const MyRow = styled.div`
 const MyMessage = styled.div`
   width: 45%;
   background-color: #69bef7;
-  color: #46516e;
+  color: white;
   padding: 10px;
   margin-right: 5px;
   text-align: center;
@@ -89,8 +89,8 @@ const PartnerRow = styled(MyRow)`
 const PartnerMessage = styled.div`
   width: 45%;
   background-color: transparent;
-  color: lightgray;
-  border: 1px solid lightgray;
+  color: #69bef7;
+  border: 1px solid #69bef7;
   padding: 10px;
   margin-left: 5px;
   text-align: center;
@@ -98,7 +98,7 @@ const PartnerMessage = styled.div`
   border-bottom-left-radius: 10%;
 `;
 
-const Window = () => {
+const Window = (props) => {
   const personalProfile = useSelector((state) => state.profile.personalProfile)
   const messageUser = useSelector((state) => state.profile.messageUser)
   const [yourID, setYourID] = useState();
@@ -143,8 +143,8 @@ const Window = () => {
   }
 
   return (
-    <Page style={{ position: 'relative' }}>
-      <p style={{fontSize: '1rem', fontFamily: 'sans-serif', margin: '5px 0'}}>{messageUser}</p> <span style={{ position: 'absolute', top: 3, right: 10, cursor: 'pointer' , fontWeight: 'bold'}}>x</span>
+    <Page style={{ visibility: props.visibility, position: 'relative' }}>
+      <p style={{fontSize: '1rem', fontFamily: 'sans-serif', margin: '5px 0'}}>{messageUser}</p> <span onClick={() => props.toggleVisibility('hidden')} style={{ position: 'absolute', top: 3, right: 10, cursor: 'pointer' , fontWeight: 'bold'}}>x</span>
       <Container>
         {messages.map((message, index) => {
           if (message.profile === personalProfile) {

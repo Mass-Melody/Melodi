@@ -31,22 +31,12 @@ export default function reducer(state = initialState, action) {
   switch (type) {
 
 
-
-
-
-
-
     case 'editProfile':
       return { ...state, profile: payload }
     case 'setProfile':
       return { ...state, personalProfilePicture: payload.picture, personalProfile: payload.username, profile: payload }
     case 'navigateProfile':
       return { ...state, profile: payload }
-    case 'newPost':
-      let id = state.profile.posts.length + 11
-      payload[id] = id
-      let addPost = [payload, ...state.profile.posts]
-      return { ...state, profile: { ...state.profile, posts: addPost } }
     case 'deletePost':
       let updatePost = state.profile.posts.filter(post => payload !== post.id)
       return { ...state, profile: { ...state.profile, posts: updatePost } }
@@ -150,13 +140,6 @@ export const populateFriends = (friends) => async dispatch => {
     })
   }
 
-}
-
-export const newPost = (post) => {
-  return {
-    type: 'newPost',
-    payload: post
-  }
 }
 
 export const deletePost = (info, userProfileName) => async dispatch => {

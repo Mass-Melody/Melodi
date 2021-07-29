@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, {  useContext } from 'react'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { LoginContext } from '../../auth/context.js';
 import { makeStyles } from '@material-ui/core';
 import { If, Then } from 'react-if';
 import { useDispatch, useSelector } from 'react-redux'
-import { editProfile, yourProfile } from '../../store/profile.js'
+import { editProfile} from '../../store/profile.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,15 +49,3 @@ function Add(props) {
 }
 
 export default Add
-
-
-// const removePerson = (person) => {
-//   dispatch(removeFriend(person.username))
-// }
-
-// {
-//   isFriend.includes(props.userObj.username) ?
-//     <RemoveCircleIcon onClick={() => removePerson(props.userObj)} className={classes.removeButton} />
-//     :
-//     <AddCircleIcon onClick={() => addNewFriend(props.userObj)} className={classes.addButton} />
-// }

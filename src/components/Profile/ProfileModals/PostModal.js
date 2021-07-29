@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, TextField, Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { newPost } from '../../../store/profile.js'
+import { editProfile } from '../../../store/profile.js'
 import { If, Then } from 'react-if'
 
 
@@ -68,7 +68,8 @@ export default function SimpleModal() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const profileData = useSelector((state) => state.profile)
+  const profileData = useSelector((state) => state.profile.profile)
+  const personalProfile = useSelector((state) => state.profile.personalProfile)
 
   const handleChange = (e) => {
     if (e.target.name === 'title') {
@@ -78,13 +79,15 @@ export default function SimpleModal() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, userObj) => {
     e.preventDefault()
-    const data = {
+    const newPost = {
       title: title,
       content: content
     }
-    dispatch(newPost(data))
+    newPost.id = userObj.posts.length + 11
+    userObj.posts = [newPost, ...userObj.posts]
+    dispatch(editProfile(userObj, personalProfile))
     handleClose()
   }
 
@@ -99,7 +102,7 @@ export default function SimpleModal() {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">CREATE NEW POST</h2>
-      <form onSubmit={(e) => handleSubmit(e)} className={classes.root} noValidate autoComplete="off">
+      <form onSubmit={(e) => handleSubmit(e, profileData)} className={classes.root} noValidate autoComplete="off">
         <TextField
           required
           id="outlined-required"
@@ -131,7 +134,7 @@ export default function SimpleModal() {
 
   return (
     <div>
-      <If condition={profileData.personalProfile === profileData.profile.username}>
+      <If condition={personalProfile === profileData.username}>
         <Then>
           <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
             New Post
