@@ -60,12 +60,6 @@ function Search() {
       justifyContent="flex-start"
       className={classes.container}
     >
-      {/* <Grid
-        item
-        className={classes.searchHeader}
-      >
-        <h3>Search results</h3>
-      </Grid> */}
       <Grid
         item
         className={classes.searchHeader}

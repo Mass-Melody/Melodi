@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     left: '1rem',
     top: '2rem',
-    fontWeight: 700
+    fontWeight: 700,
+    textDecoration: 'underline'
   },
   postTitle: {
     fontSize: '1.3rem',

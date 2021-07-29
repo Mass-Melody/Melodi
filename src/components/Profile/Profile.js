@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '1rem'
   },
   left: {
-    width: '360px'
+    width: '400px'
   },
   right: {
     width: '500px'

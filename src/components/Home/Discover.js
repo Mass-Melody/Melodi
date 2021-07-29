@@ -54,9 +54,6 @@ export default function Discover() {
   return (
     <>
     <div className={classes.root}>
-      <h2>
-        Discover
-      </h2>
     </div>
       <div className={classes.root}>
         <ImageList className={classes.imageList} cols={2.5}>

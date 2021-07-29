@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
   picture: {
     borderRadius: '10px',
-    width: 940,
+    width: 1000,
     height: 500
   }
 }))

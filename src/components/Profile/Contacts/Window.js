@@ -19,7 +19,7 @@ const Container = styled.div`
   display: flex;
   margin: auto;
   flex-direction: column;
-  height: 280px;
+  height: 200px;
   overflow: auto;
   width: 100%;
   border: 1px solid lightgray;

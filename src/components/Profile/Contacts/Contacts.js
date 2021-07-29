@@ -54,14 +54,16 @@ function Contacts() {
 
   return (
     <>
-      <Grid container style={{ width: '160px', height: '280', position: 'fixed', bottom: 0, right: 175, margin: 0 }}>
+      <Grid container style={{ width: 160, height: 540, position: 'fixed', bottom: 0, right: 175, margin: 0 }}>
         <Window />
       </Grid>
 
       <Grid
         container
-        direction="row"
-        align-items="center"
+        direction="column"
+        align-items="flex-start"
+        justifyContent="flex-start"
+        style={{background: 'white'}}
         className={classes.container}
       >
         <Grid item

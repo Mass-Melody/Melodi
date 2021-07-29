@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.3rem',
     fontFamily: 'sans-serif',
     marginBottom:'3rem',
-    fontWeight: 700
+    fontWeight: 700,
+    textDecoration: 'underline'
   }
   
 }))
@@ -55,18 +56,6 @@ function Interactions() {
             Friends
           </Link>
         </Grid>
-        <Grid item>
-          <a href="/" className={classes.font}>Follow</a>
-        </Grid>
-        {/* <Grid item>
-          <a href="/" className={classes.font}>Other1</a>
-        </Grid>
-        <Grid item>
-          <a href="/" className={classes.font}>Other2</a>
-        </Grid>
-        <Grid item>
-          <a href="/" className={classes.font}>Other3</a>
-        </Grid> */}
       </Grid>
     </Grid>
   )
