@@ -68,7 +68,6 @@ export default function SimpleModal() {
   const profileData = useSelector((state) => state.profile.profile)
   const personalProfile = useSelector((state) => state.profile.personalProfile)
 
-  // THIS IS THE PROBLEM
   const [formData, setFormData] = useState({})
 
   const handleOpen = () => {
@@ -87,7 +86,7 @@ export default function SimpleModal() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handlePicture = (e, imageUrl) => {
+  const handlePicture = (imageUrl) => {
     setFormData({ ...formData, picture: imageUrl })
   }
 
@@ -122,9 +121,6 @@ export default function SimpleModal() {
     } else {
       userData.playlist = profileData.playlist
     }
-
-    console.log("THIS IS A PLAYLIST STRING", userData.playlist)
-    
     dispatch(editProfile(userData, userProfileName))
     handleClose()
   }

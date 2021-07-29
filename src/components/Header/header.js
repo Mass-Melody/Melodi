@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import Login from '../../auth/login.js'
 import { createProfile, setProfile } from '../../store/profile.js';
 
-
 // will need to access state to check whether user is logged in -- this will affect whether the login/signup form is rendering, or the user's name with avatar
 
 function rand() {
@@ -26,10 +25,10 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   container: {
     border: '2px black solid',
-    width: '100vw',
-    height: '200px',
-    marginBottom: '1rem',
-    padding: '1rem'
+    width: '100%',
+    height: '8rem',
+    padding: '1rem',
+    background: 'black'
   },
   picture: {
     marginRight: '1.5rem'
@@ -57,6 +56,12 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 15,
     right: 15
+  },
+  title: {
+    fontSize: '8rem',
+    color: 'white',
+    fontFamily: 'sans-serif',
+    padding: '1rem'
   }
 }));
 
@@ -66,7 +71,7 @@ function Header() {
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState({})
   const dispatch = useDispatch();
-  
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -155,12 +160,17 @@ function Header() {
         </Grid>
         <Grid item>
           <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
-            <h1>Melodi</h1>
+            <h1 className={classes.title}>Melodi</h1>
           </Link>
         </Grid>
         <Grid item>
-          <Login />
-          <p onClick={handleOpen} style={{ textDecoration: 'none', paddingLeft: '35px', cursor: 'pointer', color: 'blue' }}>Create an account</p>
+          <Grid container
+            direction="column"
+          >
+            <Login />
+            <p onClick={handleOpen} style={{ textDecoration: 'none', marginTop: '5px', cursor: 'pointer', color: 'blue', }}>Create an account</p>Î
+          </Grid>
+
         </Grid>
       </Grid>
       <Modal

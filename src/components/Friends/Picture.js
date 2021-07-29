@@ -10,13 +10,19 @@ const useStyles = makeStyles((theme) => ({
   picture: {
     width: '100px',
     height: '100px',
-    marginRight: '2rem'
+    marginRight: '2rem',  
+  },
+  font: {
+    fontSize: '1rem',
+    fontFamily: 'sans-serif',
+    marginBottom: '1rem'
   }
 }))
 
 function Picture(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
+  
   const goToProfile = (user) => {
     dispatch(navigateProfile(user))
   }
@@ -41,9 +47,9 @@ function Picture(props) {
         align-itmes="center"
         justifyContent="flex-start"
       >
-        <p>{props.friendObj.firstName} {props.friendObj.lastName}</p>
-        <p>{props.friendObj.location}</p>
-        <p>{props.friendObj.instrument}</p>
+        <p className={classes.font}>{props.friendObj.firstName} {props.friendObj.lastName}</p>
+        <p className={classes.font}>{props.friendObj.location}</p>
+        <p className={classes.font}>{props.friendObj.instrument}</p>
       </Grid>
     </Grid>
   )

@@ -8,6 +8,11 @@ const useStyles = makeStyles((theme) => ({
     width: '50px',
     height: '50px',
     marginRight: '2rem'
+  },
+  name: {
+    fontSize: '1rem',
+    marginBottom: '.5rem',
+    fontFamily: 'sans-serif'
   }
 }))
 
@@ -23,7 +28,7 @@ function Picture(props) {
       <Grid
         item
       >
-        <Avatar alt="Remy Sharp" src={props.friendObj.picture} className={classes.picture} />
+        <Avatar alt="Remy Sharp" src={props.friendObj.picture || `https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg`} className={classes.picture} />
       </Grid>
       <Grid
         item
@@ -31,8 +36,8 @@ function Picture(props) {
         align-itmes="center"
         justifyContent="flex-start"
       >
-        <p>{props.friendObj.firstName} {props.friendObj.lastName}</p>
-        <Message />
+        <p className={classes.name}>{props.friendObj.firstName} {props.friendObj.lastName}</p>
+        <Message friendObj={props.friendObj}/>
       </Grid>
     </Grid>
   )

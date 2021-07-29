@@ -4,17 +4,25 @@ import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    border: '2px black solid',
     width: '100%',
     height: '400px',
     marginBottom: '1rem',
     padding: '1rem',
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
-    boxShadow: '0 1px 2px var(--shadow-2)',
+    boxShadow: '0px 2px 15px rgba(0,0,0,0.18)',
     background: 'white'
   },
-  picture: {
-    marginRight: '1.5rem'
+  title: {
+    fontSize: '1.4rem',
+    fontFamily: 'sans-serif',
+    marginBottom:'3rem',
+    fontWeight: 700,
+    textDecoration: 'underline'
+  },
+  font: {
+    fontSize:'1rem',
+    fontFamily: 'sans-serif',
+    textDecoration: 'none',
   }
 }))
 
@@ -29,8 +37,8 @@ function Aboutme() {
       align="flex-start"
       className={classes.container}
     >
-      <h4>About Me</h4>
-      <p> {about} </p>
+      <h4 className={classes.title}>About Me</h4>
+      <p className={classes.font}> {about} </p>
     </Grid>
   )
 }

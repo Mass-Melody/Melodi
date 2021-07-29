@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Add from './Add.js'
 import Picture from './Picture.js'
 import { Grid, makeStyles } from '@material-ui/core';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { populateFriends } from '../../store/profile.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,15 +15,6 @@ const useStyles = makeStyles((theme) => ({
     width: '680px',
     background: 'white',
     boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-    borderRadius: '6px',
-    padding: '1rem',
-    margin: '0px auto'
-  },
-  searchResults: {
-    width: '680px',
-    background: 'white',
-    boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-    borderRadius: '6px',
     padding: '1rem',
     margin: '0px auto'
   },
@@ -41,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
   addButton: {
     fontSize: 'large',
     cursor: 'pointer'
+  },
+  title: {
+    fontSize: '2rem',
+    fontFamily: 'sans-serif'
   }
 }))
 
@@ -50,6 +46,11 @@ function Search() {
   const currentState = useSelector((state) => state.profile)
   const filteredUsers = currentState.users.filter(value => value.username !== currentState.personalProfile && currentState.profile.location === value.location)
   const allUsers = currentState.users.filter(value => value.username !== currentState.personalProfile)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(populateFriends(currentState.profile.friends))
+  }, [])
 
   return (
     <Grid
@@ -63,13 +64,7 @@ function Search() {
         item
         className={classes.searchHeader}
       >
-        <h3>Search results</h3>
-      </Grid>
-      <Grid
-        item
-        className={classes.searchHeader}
-      >
-        <h3>People Near You!</h3>
+        <h3 className={classes.title}>People Near You!</h3>
       </Grid>
       {filteredUsers && filteredUsers.map(user =>
         <Grid item>
@@ -89,7 +84,7 @@ function Search() {
         item
         className={classes.searchHeader}
       >
-        <h3>All Users</h3>
+        <h3 className={classes.title}>All Users</h3>
       </Grid>
       {allUsers && allUsers.map(user =>
         <Grid item>

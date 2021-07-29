@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from "react-router-dom";
+import { populateFriends } from '../../store/profile.js'
 import Remove from './Remove.js'
 import Picture from './Picture.js'
 
@@ -15,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     width: '680px',
     background: 'white',
     boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-    borderRadius: '6px',
     padding: '1rem',
     margin: '0px auto'
   },
@@ -30,13 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
   addButton: {
     fontSize: 'large'
+  },
+  title: {
+    fontSize: '2rem',
+    fontFamily: 'sans-serif'
   }
 }))
 
 function Friends() {
-  const friendsList = useSelector((state) => state.profile.profile.friends)
+  const friendsList = useSelector((state) => state.profile.listOfFriends)
+  const currentProfile = useSelector((state) => state.profile.profile.friends)
+  const yourProfile = useSelector((state) => state.profile.personalProfile)
   const classes = useStyles()
   const { username } = useParams()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      dispatch(populateFriends(currentProfile))
+  },[])
 
   return (
     <Grid
@@ -50,7 +61,7 @@ function Friends() {
         item
         className={classes.searchHeader}
       >
-        <h3>Friends ({friendsList.length})</h3>
+        <h3 className={classes.title}>Friends ({friendsList.length})</h3>
       </Grid>
       {friendsList && friendsList.map(friend =>
         <Grid item>

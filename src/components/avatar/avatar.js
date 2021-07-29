@@ -15,6 +15,7 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import RenderCropper from '../cropper/cropper.js';
+import {useSelector} from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,7 @@ function RenderAvatar(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const profileImage = useSelector((state) => state.profile.profile.picture)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -73,7 +75,6 @@ function RenderAvatar(props) {
   }, [open]);
 
   const [showCropper, setShowCropper] = useState(false);
-
   const handleCropper = () => setShowCropper((prevValue) => !prevValue);
 
   return (
@@ -81,7 +82,7 @@ function RenderAvatar(props) {
     
       <div className='avatar-container'>
         <div className='avatar'>
-          <img src='' alt='avatar' className='avatar-img' />
+          <img src={profileImage} alt='avatar' className='avatar-img' />
         </div>
 
         <IconButton
