@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '200px',
     padding: '1rem',
     dispaly: 'inline',
-    marginTop: '3rem'
+    paddingTop: '3rem'
   },
   picture: {
     marginRight: '1.5rem'

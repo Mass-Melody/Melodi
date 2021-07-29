@@ -155,7 +155,7 @@ function Header() {
           item
         >
           <Link to='/'>
-            <img src="https://via.placeholder.com/100x100" alt="company logo" style={{ borderRadius: 50 + 'px' }} />
+            <img style={{height: 100, width: 150, borderRadius: '170px'}} src="https://e7.pngegg.com/pngimages/784/381/png-clipart-white-and-red-musical-note-logo-text-symbol-brand-music-text-trademark.png" alt="company logo"/>
           </Link>
         </Grid>
         <Grid item>

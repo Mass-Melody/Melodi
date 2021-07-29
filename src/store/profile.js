@@ -224,9 +224,11 @@ export const navigateProfile = (profileInfo) => async dispatch => {
   let parseInterests = JSON.parse(userProfile.data.interests);
   let parseDetails = JSON.parse(userProfile.data.details);
   let parsePosts = JSON.parse(userProfile.data.posts)
+  let parseFriends = JSON.parse(userProfile.data.friends)
   userProfile.data.interests = parseInterests;
   userProfile.data.details = parseDetails;
   userProfile.data.posts = parsePosts;
+  userProfile.data.friends = parseFriends;
   dispatch({
     type: 'navigateProfile',
     payload: userProfile.data
