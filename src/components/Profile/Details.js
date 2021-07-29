@@ -23,21 +23,30 @@ const useStyles = makeStyles((theme) => ({
     fontSize:'1rem',
     fontFamily: 'sans-serif',
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
+    border: '3px solid black',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   detailInfo: {
     background: '#94ddff',
-    color: 'white',
+    color: 'black',
     width: '70%',
     fontSize:'1rem',
     fontFamily: 'sans-serif',
     textDecoration: 'none',
     padding: '0.1rem',
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
+    border: '3px solid black',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontSize: '1.3rem',
     fontFamily: 'sans-serif',
-    fontWeight: 700
+    fontWeight: 700,
+    textDecoration: 'underline'  
   }
 }))
 

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     display: 'inline-block',
-    padding: '4rem'
+    padding: '10rem',
   },
   div: {
     textAlign: 'center',
@@ -34,10 +34,7 @@ export default function Info() {
               <PublicTwoToneIcon fontSize='large'/>
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Discover" secondary="Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius;
-    dignissim elementum. Mollis tincidunt mattis hendrerit dolor eros enim, nisi ligula ornare.
-    Hendrerit parturient habitant pharetra rutrum gravida porttitor eros feugiat. Mollis elit
-    sodales taciti duis praesent id. Consequat urna vitae morbi nunc congue." />
+          <ListItemText primary="Discover" secondary="Discover a wide range of musical genres including bands and acts in your local area! Listen to what your friends are listening to right now!" />
         </ListItem>
       </List>
 
@@ -48,10 +45,7 @@ export default function Info() {
               <GroupAddTwoToneIcon fontSize='large'/>
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Meet People" secondary="Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius;
-    dignissim elementum. Mollis tincidunt mattis hendrerit dolor eros enim, nisi ligula ornare.
-    Hendrerit parturient habitant pharetra rutrum gravida porttitor eros feugiat. Mollis elit
-    sodales taciti duis praesent id. Consequat urna vitae morbi nunc congue." />
+          <ListItemText primary="Meet People" secondary="Follow your friends. Follow other musicians in your area and collaborate!." />
         </ListItem>
       </List>
 
@@ -62,10 +56,7 @@ export default function Info() {
               <HeadsetTwoToneIcon  fontSize='large'/>
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Jam Out" secondary="Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius;
-    dignissim elementum. Mollis tincidunt mattis hendrerit dolor eros enim, nisi ligula ornare.
-    Hendrerit parturient habitant pharetra rutrum gravida porttitor eros feugiat. Mollis elit
-    sodales taciti duis praesent id. Consequat urna vitae morbi nunc congue." />
+          <ListItemText primary="Jam Out" secondary="Find awesome music with a click of a button and turn the volume up! Melodi encourages you to have a great time!" />
         </ListItem>
       </List>
     </div>

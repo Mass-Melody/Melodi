@@ -78,7 +78,7 @@ function Search() {
         <Link to='/search'>
           <button className={classes.title}>SEARCH</button>
         </Link>
-        <input onChange={() => handleChange()} className={classes.input} type="text" name="search" />
+        {/* <input onChange={(e) => handleChange(e)} className={classes.input} type="text" name="search" /> */}
       </form>
     </div>
   );

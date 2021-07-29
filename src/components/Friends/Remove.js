@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { makeStyles } from '@material-ui/core';
-import { removeFriend } from '../../store/profile.js';
-import { useDispatch, useSelector  } from 'react-redux'
+import { removeFriend, populateFriends } from '../../store/profile.js';
+import { useDispatch, useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   removeButton: {
@@ -13,19 +13,24 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Remove({friendName}) {
+function Remove({ friendName }) {
   const profileData = useSelector((state) => state.profile.profile)
+  const [formData, setFormData] = useState(profileData)
   const personalProfile = useSelector((state) => state.profile.personalProfile)
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const removePerson = (person) => {
-    dispatch(removeFriend(person.username))
+  const removePerson = (data, person) => {
+    let removeUser = profileData.friends.filter(friend => person !== friend)
+    console.log(removeUser)
+    data.friends = removeUser
+    dispatch(removeFriend(data, personalProfile))
+    dispatch(populateFriends(removeUser))
   }
 
   return (
     <div>
-      <RemoveCircleIcon onClick={() => removePerson(friendName)} className={classes.removeButton} />
+      <RemoveCircleIcon onClick={() => removePerson(formData, friendName.username)} className={classes.removeButton} />
     </div>
   )
 }

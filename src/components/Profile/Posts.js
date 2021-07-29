@@ -2,7 +2,7 @@ import React from 'react'
 import PostModal from './ProfileModals/PostModal.js'
 import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { deletePost } from '../../store/profile.js'
+import { editProfile } from '../../store/profile.js'
 import { If, Then } from 'react-if'
 
 
@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     left: '1rem',
     top: '2rem',
-    fontWeight: 700
+    fontWeight: 700,
+    textDecoration: 'underline'
   },
   postTitle: {
     fontSize: '1.3rem',
@@ -49,14 +50,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Aboutme() {
+function Posts() {
   const classes = useStyles()
   const posts = useSelector((state) => state.profile.profile.posts)
   const profileData = useSelector((state) => state.profile.profile)
   const personalProfile = useSelector((state) => state.profile.personalProfile)
+
   const dispatch = useDispatch()
-  const handleDelete = (id) => {
-    dispatch(deletePost(id))
+  const handleDelete = (id, userObj) => {
+    let removePost = posts.filter(post => post.id !== id)
+    userObj.posts = removePost
+    console.log(removePost)
+    dispatch(editProfile(userObj, personalProfile))
   }
 
   return (
@@ -88,7 +93,7 @@ function Aboutme() {
             <p className={classes.postContent}>{post.content}</p>
             <If condition={personalProfile === profileData.username}>
               <Then>
-                <span className={classes.delete} style={{ position: 'absolute', right: 5 }} onClick={() => handleDelete(post.id)}>X</span>
+                <span className={classes.delete} style={{ position: 'absolute', right: 5 }} onClick={() => handleDelete(post.id, profileData)}>X</span>
               </Then>
             </If>
           </Grid>
@@ -99,7 +104,7 @@ function Aboutme() {
   )
 }
 
-export default Aboutme
+export default Posts
 
 
 

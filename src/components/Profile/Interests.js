@@ -18,27 +18,36 @@ const useStyles = makeStyles((theme) => ({
     background: '#0f8fff',
     color: 'white',
     padding: '2px',
-    fontSize:'1rem',
+    fontSize: '1rem',
     fontFamily: 'sans-serif',
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
+    border: '3px solid black',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   interestContainer: {
     marginBottom: '.5rem'
   },
   interestInfo: {
     background: '#94ddff',
-    color: 'white',
+    color: 'black',
     width: '70%',
-    fontSize:'1rem',
+    fontSize: '1rem',
     fontFamily: 'sans-serif',
     textDecoration: 'none',
     padding: '0.1rem',
     borderRadius: 'max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px',
+    border: '3px solid black',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontSize: '1.3rem',
     fontFamily: 'sans-serif',
-    fontWeight: 700
+    fontWeight: 700,
+    textDecoration: 'underline'
   }
 }))
 
@@ -55,7 +64,7 @@ function Interests() {
       <h4 className={classes.title}>Interests</h4>
       {interests && interests.map(interest =>
         <Grid
-        className={classes.interestContainer}
+          className={classes.interestContainer}
           container>
           <p className={classes.interestTitle}>
             {interest.name}

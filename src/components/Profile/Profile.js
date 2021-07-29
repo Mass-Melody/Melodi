@@ -11,6 +11,8 @@ import Aboutme from './Aboutme.js'
 import Contacts from './Contacts/Contacts.js'
 import { makeStyles } from '@material-ui/core';
 import { useParams } from "react-router-dom";
+import { If, Then } from 'react-if'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '1rem'
   },
   left: {
-    width: '360px'
+    width: '400px'
   },
   right: {
     width: '500px'
@@ -29,36 +31,43 @@ const useStyles = makeStyles((theme) => ({
 function Profile() {
   const classes = useStyles()
   const { username } = useParams();
+  const currentProfile = useSelector((state) => state.profile.profile.username)
+  const yourProfile = useSelector((state) => state.profile.personalProfile)
+
 
   return (
-    <>
-    <Grid 
-    container
-    direction="row"
-    justifyContent="space-around"
-    alignItems="flex-start"
-    className={classes.container}
-    >
-      <Hero />
-      <Grid item
-        className={classes.left}
+    <div style={{position: 'relative'}}>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-around"
+        alignItems="flex-start"
+        className={classes.container}
       >
-        {/* LEFT */}
-        <Picture />
-        <Interactions />
-        <Playlist />
-        <Interests />
-        <Details />
+        <Hero />
+        <Grid item
+          className={classes.left}
+        >
+          {/* LEFT */}
+          <Picture />
+          <Interactions />
+          <Playlist />
+          <Interests />
+          <Details />
+        </Grid>
+        <Grid item
+          className={classes.right}>
+          {/* RIGHT */}
+          <Aboutme />
+          <Posts />
+        </Grid>
       </Grid>
-      <Grid item
-        className={classes.right}>
-        {/* RIGHT */}
-        <Aboutme />
-        <Posts />
-      </Grid>
-    </Grid>
-    <Contacts />
-</>
+      <If condition={currentProfile === yourProfile}>
+        <Then>
+          <Contacts />
+        </Then>
+      </If>
+    </div>
   )
 }
 

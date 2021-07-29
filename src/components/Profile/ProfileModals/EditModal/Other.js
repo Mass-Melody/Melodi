@@ -1,16 +1,23 @@
 import React from 'react'
-import { TextField } from '@material-ui/core';
-import RenderCropper from '../../../cropper/cropper.js';
+import { TextField, makeStyles, Button, IconButton } from '@material-ui/core';
 import RenderAvatar from '../../../avatar/avatar.js';
 import { useSelector } from 'react-redux';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  }
+}))
+
 function TextboxOther(props) {
   const info = useSelector((state) => state.profile.profile)
+  const classes = useStyles()
 
   return (
     <div>
-
-      <RenderAvatar handlePicture={props.handlePicture} handleChange={props.handleChange}/>
+      <RenderAvatar handlePicture={props.handlePicture} handleChange={props.handleChange} />
       <TextField
         required
         id="outlined-required"
@@ -19,9 +26,7 @@ function TextboxOther(props) {
         name="hero"
         defaultValue={info.hero}
         onChange={(e) => props.handleChange(e)}
-        style={{
-          marginTop: '200px',
-        }}
+        style={{ marginTop: '200px' }}
       />
       <TextField
         required

@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.4rem',
     fontFamily: 'sans-serif',
     marginBottom:'3rem',
-    fontWeight: 700
+    fontWeight: 700,
+    textDecoration: 'underline'
   },
   font: {
     fontSize:'1rem',

@@ -27,19 +27,21 @@ function Add(props) {
   const userContext = useContext(LoginContext);
   const profileData = useSelector((state) => state.profile.profile)
   const personalProfile = useSelector((state) => state.profile.personalProfile)
-  const [formData, setFormData] = useState(profileData)
 
-  const addNewFriend = (e, data, userObj) => {
+  const addNewFriend = (user, userObj) => {
     let addFriend = userObj.username
-    data.friends = [...data.friends, addFriend]
-    dispatch(editProfile(data, personalProfile))
+      user.friends = [...user.friends, addFriend]
+      dispatch(editProfile(user, personalProfile))
   }
-  
+
+
+
+
   return (
     <div>
-      <If condition={userContext.isLoggedIn}>
+      <If condition={userContext.isLoggedIn && !profileData.friends.includes(props.userObj.username)}>
         <Then>
-          <AddCircleIcon onClick={(e) => addNewFriend(e, formData, props.userObj)} className={classes.addButton} />
+          <AddCircleIcon onClick={() => addNewFriend(profileData, props.userObj)} className={classes.addButton} />
         </Then>
       </If>
     </div>
