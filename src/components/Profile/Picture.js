@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, makeStyles } from '@material-ui/core';
+import { Modal, Grid, makeStyles } from '@material-ui/core';
 import Edit from './ProfileModals/EditModal/EditModal.js'
 import { useSelector } from 'react-redux';
 
@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: '150px',
     height: '150px',
-    marginBottom: '1rem'
+    marginBottom: '1rem',
+    cursor: 'pointer'
   },
   font: {
     fontSize: '1rem',
@@ -44,38 +45,77 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2rem',
     fontSize: '2rem',
     fontFamily: 'sans-serif'
+  },
+  paper: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 }))
 
 function Picture() {
   const classes = useStyles()
   const profile = useSelector((state) => state.profile.profile)
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+
+  const body = (
+    <div style={modalStyle} className={classes.paper}>
+      <img src={profile.picture} alt="Profile" />
+    </div>
+  );
+
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   return (
-    <Grid
-      container
-      className={classes.container}
-    >
-      <h4 className={classes.title}>{profile.firstName} {profile.lastName}</h4>
+    <>
       <Grid
         container
-        direction="row"
-        justify="space-around"
-        alignItems="center"
+        className={classes.container}
       >
-        <Grid item
-          className={classes.imageContainer}>
-          <img className={classes.image} src={profile.picture} alt="Profile" />
+        <h4 className={classes.title}>{profile.firstName} {profile.lastName}</h4>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+        >
+          <Grid item
+            className={classes.imageContainer}>
+            <img onClick={handleOpen} className={classes.image} src={profile.picture} alt="Profile" />
+          </Grid>
+          <Grid item>
+            <p className={classes.font}>{profile.age} Years Old</p>
+            <p className={classes.font}>{profile.location}</p>
+          </Grid>
         </Grid>
         <Grid item>
-          <p className={classes.font}>{profile.age} Years Old</p>
-          <p className={classes.font}>{profile.location}</p>
-        </Grid>
-      </Grid>
-      <Grid item>
           <Edit />
         </Grid>
-    </Grid>
+      </Grid>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
+    </>
   )
 }
 

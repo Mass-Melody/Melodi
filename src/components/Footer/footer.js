@@ -42,13 +42,15 @@ function Footer() {
       alignItems="center"
     >
       <Grid item className={classes.item}>
-        <HomeIcon style={{color: 'white', cursor: 'pointer'}} fontSize="large" />
+        <HomeIcon style={{ color: 'white', cursor: 'pointer' }} fontSize="large" />
       </Grid>
       <Grid item className={classes.item}>
-      <GroupIcon style={{color: 'white', cursor: 'pointer'}} fontSize="large" />
+        <GroupIcon style={{ color: 'white', cursor: 'pointer' }} fontSize="large" />
       </Grid>
       <Grid item className={classes.item}>
-        <GitHubIcon style={{color: 'white', cursor: 'pointer'}} fontSize="large"/>
+        <a href="https://github.com/Mass-Melody">
+          <GitHubIcon style={{ color: 'white', cursor: 'pointer' }} fontSize="large" />
+        </a>
       </Grid>
       <Grid item className={classes.copyright}>
         &copy; {date} Mass-Melody

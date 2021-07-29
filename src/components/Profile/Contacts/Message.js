@@ -17,6 +17,7 @@ function Message(props) {
   const dispatch = useDispatch()
   
   const chooseUser = (username) => {
+    props.toggleVisibility('visible')
     dispatch(messageUser(username))
   }
 

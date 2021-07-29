@@ -74,11 +74,9 @@ function Search() {
   return (
     <div className={classes.container}>
       <form onSubmit={(e) => handleSubmit(e)}>
-        {/* BUTTON DOES NOT WORK */}
         <Link to='/search'>
           <button className={classes.title}>SEARCH</button>
         </Link>
-        {/* <input onChange={(e) => handleChange(e)} className={classes.input} type="text" name="search" /> */}
       </form>
     </div>
   );
