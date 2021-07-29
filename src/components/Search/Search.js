@@ -9,7 +9,8 @@ import { populateFriends } from '../../store/profile.js'
 const useStyles = makeStyles((theme) => ({
   container: {
     background: '#e0e0e0',
-    overflow: 'auto'
+    overflow: 'auto',
+    paddingBottom: '8rem'
   },
   searchResults: {
     width: '680px',

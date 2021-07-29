@@ -18,12 +18,14 @@ export default function About() {
   return (
     <Grid container className={classes.root} spacing={5}>
       <Grid item xs={12}>
-        <Grid container justifyContent="space-evenly" spacing={2}>
-          <div>About Melodi</div>
-          <div style={{ maxWidth: '25%' }}>"Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius;
-    dignissim elementum. Mollis tincidunt mattis hendrerit dolor eros enim, nisi ligula ornare.
-    Hendrerit parturient habitant pharetra rutrum gravida porttitor eros feugiat. Mollis elit
-    sodales taciti duis praesent id. Consequat urna vitae morbi nunc congue."</div>
+        <Grid container 
+        style={{padding: '3rem', background: '#EEEEEE'}}
+        alignItems="center"
+        justifyContent="space-evenly" spacing={2}>
+          <div style={{fontSize: '4rem', fontStyle: 'italic'}}>About Melodi</div>
+          <div style={{ fontSize: '1.5rem', fontFamily: 'sans-serif', maxWidth: '25%', textAlign: 'center' }}>By keeping a focus on music, hobbies, and interests of individuals, Melodi strives to organically build communities and meaningful connections based on passion. 
+Whether you are an artist, musician, or music lover, Melodi will facilitate relationships centered around music.
+</div>
         </Grid>
       </Grid>
       <Grid item xs={12}>

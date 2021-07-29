@@ -6,7 +6,6 @@ import InterestsTextBox from './Interests.js'
 import DetailsTextBox from './Details.js'
 import OtherTextBox from './Other.js'
 import RenderSnackbar from '../../../snackbar/snackbar.js';
-import SimpleBackdrop from '../../../backdrop/backdrop.js';
 import { editProfile } from '../../../../store/profile.js'
 import { If, Then } from 'react-if'
 
@@ -136,9 +135,7 @@ export default function SimpleModal() {
         >
           <Grid item>
             <RenderSnackbar>
-              <SimpleBackdrop>
                 <OtherTextBox handlePicture={handlePicture} handleChange={handleChange} />
-              </SimpleBackdrop>
             </RenderSnackbar>
           </Grid>
           <Grid item>
