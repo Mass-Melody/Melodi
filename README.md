@@ -34,9 +34,9 @@ Traditional social media platforms focus too much on displays of status, materia
 - AWS Amplify
 
 ## Features
-- Real-time communication
-- User Login and Authentication
-- Embed Personal Playlist
+- Real-time communication.
+- User Login and Authentication.
+- Embed Personal Playlist.
 
 ## Code Example
 
@@ -44,8 +44,8 @@ Traditional social media platforms focus too much on displays of status, materia
 
 ### Method 1
 - Clone repository at: https://github.com/Mass-Melody/Melodi
-- Run `git clone https://github.com/Mass-Melody/Melodi.git`
-- Run `npm start`
+- Run `git clone https://github.com/Mass-Melody/Melodi.git`.
+- Run `npm start`.
 
 ## API Reference
 - [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
